@@ -1,0 +1,24 @@
+export default class Orbit<T> {
+    public name: string = '';
+    private _orbitStats: T | undefined;
+
+    public get orbitStats(): T {
+        if (this._orbitStats === undefined) {
+            throw Error('stats undefined');
+        }
+
+        return this._orbitStats;
+    }
+
+    public set orbitStats(stats: T) {
+        this._orbitStats = stats;
+    }
+
+    public constructor(stats: T) {
+        this.orbitStats = stats;
+    }
+
+    public get type(): string {
+        return typeof this._orbitStats;
+    }
+}
