@@ -14,17 +14,41 @@ When finished the goals will be:
 * Using stellar-nursery-denizens generate star/planet/moon names as well as allowing for terraforming based on faction/tech level
 * Be written/broken down in such a way that a user can replace generators with their own, or add more to provide more information.
 
+The library is designed so each generator deals with a specific job.
 
-Each generator only deals with its own entity and can be set to run related generators if defined.
-i.e.
-1. System Generator - generates age, and how many stars the system has, if set it will use 2.
-2. Star Generator - generates star stats, and if set use 3.
-3. Orbit Generator - generates orbits around star in each zone and base planetary type, if set it will use 4.
-4. Planetary Generator (Planetary type specific i.e. Dwarf) - generates exact planet type based on zone position, if set it will use 5.
-5. Planet Generator (Planet type specific i.e Hebean) - generates stats for planet, if set will use 6 (unless is dealing with moon).
-....
+*note: Subscribed generators when called calls hasWork to see if the subscribed generator should be run.
 
-Unless the next generator is set, each generator is self-contained making it easier to test.
+- System Generator (ISystemLevelGen)
+    - Generates age, and how many stars the system has.
+    - IStarLevelGen can be subscribed to this generator
+        - Subscribers are called once and will run ALL which have work
+- Star Generator (IStarLevelGen)
+    - Generates star stats.
+    - IOrbitGen can be subscribed to this generator
+        - Subscribers are  called once and will stop when it finds first that has work.
+- Orbit Generator  (IOrbitGen)
+    - Calculates how many orbits in each zone.
+    - IPlanetCategoryGen can be subscribed to this generator
+        - Subscribers are called once per orbit and will stop when it finds first that has work (for each orbit).
+- Planet Category Generator (IPlanetCategoryGen)
+    - Calculates base planet type.
+    - IPlanetGen can be subscribed to this generator
+        - Subscribers are called once and will stop when it finds first that has work.
+- Planet Generator (IPlanetGen)
+    - Calculates exact planet type from base
+    - Generates stats for planet
+    - (To Come) IMoonOrbitGen can be subscribed to this generator
+        - Subscribers are called once if planet is not a moon and will stop when it finds first that has work.
+- (To Come) Moon Generator (IMoonOrbitGen)
+    - (To Come) IPlanetCategoryGen can be subscribed to this generator
+        - (To Come) Subscribers are called once per orbit and will stop when it finds first that has work (for each orbit).
+        - (To Come) This means you can use the same Planet Category Generator and publishers in this to generate moons.
+
+Due to this setup it means each generator can be tested individually, extra generators subscribed or not.
+
+
+(To Come) Better readme
+
 Randomness is provided by RandomSeedFactory from [stellar-nursery-shared](https://github.com/mantrai/stellar-nursery-shared)
 allowing it to be easily mocked even using the core RandomSeedFactory the same seed returns the same result every time.
 
