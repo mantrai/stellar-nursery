@@ -30,7 +30,7 @@ export default class AcheronianPlanetGen extends BasePlanetGen implements IPlane
         stats.description = 'These are worlds that were directly affected by their primary\'s transition from the main sequence; the atmosphere and oceans have been boiled away, leaving a scorched, dead planet.\n';
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.star, workObj.zone, workObj.age, workObj.planet);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
         return workObj.planet;
     }
 }

@@ -22,16 +22,18 @@ export default class BasePlanetGen {
         return this._random;
     }
 
-    public response(star: Star, zone:number, age: number, parent: Orbit<any>): Orbit<IPlanet> {
-        this.publish.getKeys().forEach((key: number) => {
-            const sub = this.publish.getSubscription(key);
-            const worker = new MoonOrbitWorker(star, zone, age, parent);
-            if (sub && sub.hasWork(worker)) {
-                parent.orbitStats.orbits = sub.run(worker);
-            }
-        });
+    public response(orbit: Orbit<IPlanet> ,star: Star, zone:number, age: number, parent?: Orbit<any>): Orbit<IPlanet> {
+        if (parent === undefined) {
+            this.publish.getKeys().forEach((key: number) => {
+                const sub = this.publish.getSubscription(key);
+                const worker = new MoonOrbitWorker(star, zone, age, orbit);
+                if (sub && sub.hasWork(worker)) {
+                    orbit.orbitStats.orbits = sub.run(worker);
+                }
+            });
+        }
 
-        return parent;
+        return orbit;
     }
 
     protected toValue(input: number, min: number = 0, max: number = 16): number {

@@ -31,15 +31,17 @@ export default class OrbitGenerator implements IOrbitGen {
                     roll -= 20;
                 }
 
-                this.publish.getKeys().forEach((key: string) => {
+                this.publish.getKeys().some((key: string) => {
                     const sub = this.publish.getSubscription(key);
                     const worker = new PlanetCategoryWorker(roll, workObj.star, workObj.age, zone);
                     if (sub && sub.hasWork(worker)) {
                         const orbit: Orbit<any> | false = sub.run(worker);
                         if (orbit) {
                             orbits.push(orbit);
+                            return true;
                         }
                     }
+                    return false;
                 });
             }
         });

@@ -32,12 +32,14 @@ export default class StarGenerator implements IStarLevelGen {
             );
             stats.separation = i > 0 ? this.getSeparation(this.random.between(1, 6)) : 0;
             const orbit = new Orbit<Star>(stats);
-            this.publish.getKeys().forEach((key: number) => {
+            this.publish.getKeys().some((key: number) => {
                 const sub = this.publish.getSubscription(key);
                 const worker = new OrbitWorker(orbit.orbitStats, workObj.age);
                 if (sub && sub.hasWork(worker)) {
                     orbit.orbitStats.orbits = sub.run(worker);
+                    return true;
                 }
+                return false;
             });
             orbits.push(orbit);
             mod += this.random.between(0, 5);

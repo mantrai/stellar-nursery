@@ -29,7 +29,7 @@ export default class AsphodelianPlanetGen extends BasePlanetGen implements IPlan
         stats.description = 'These are worlds that were directly affected by their primary\'s transition from the main sequence; their atmosphere has been boiled away, leaving the surface exposed.';
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.star, workObj.zone, workObj.age, workObj.planet);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.planet);
         return workObj.planet;
     }
 }
