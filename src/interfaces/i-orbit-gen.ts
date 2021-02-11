@@ -1,11 +1,14 @@
 import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
 import Orbit from '../objects/orbit';
-import Star from '../objects/star';
-import IPlanetGenMapper from './i-planet-gen-mapper';
+import ISubscriber from "./i-subscriber";
+import IPublisher from "./i-publisher";
+import OrbitWorker from "../objects/work/orbit-worker";
+import PlanetCategoryWorker from "../objects/work/planet-category-worker";
 
-export default interface IOrbitGen {
+export default interface IOrbitGen extends ISubscriber<number, OrbitWorker, Orbit<any>[]> {
     random: RandomSeedFactory;
-    mapper: IPlanetGenMapper;
-    addOption(maxRoll: number, key: number): IOrbitGen;
-    generate(star: Star, age: number): Orbit<any>[];
+    publish: IPublisher<string, PlanetCategoryWorker, Orbit<any> | false>;
+    getKey(): number;
+    hasWork(workObj: OrbitWorker): boolean;
+    run(workObj: OrbitWorker) : Orbit<any>[];
 }
