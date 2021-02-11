@@ -2,23 +2,48 @@ import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
 import Orbit from '../objects/orbit';
 import Star from '../objects/star';
 import { Separation } from 'stellar-nursery-shared';
-import IStarGen from '../interfaces/i-star-gen';
+import IStarLevelGen from '../interfaces/i-star-level-gen';
 import IOrbitGen from '../interfaces/i-orbit-gen';
+import StarLevelWorker from '../objects/work/star-level-worker';
+import IPublisher from "../interfaces/i-publisher";
+import OrbitWorker from "../objects/work/orbit-worker";
+import StellarNurseryPublisher from "../stellar-nursery-publisher";
 
-export default class StarGenerator implements IStarGen {
+export default class StarGenerator implements IStarLevelGen {
     private _random: RandomSeedFactory | undefined;
-    private _orbitGen: IOrbitGen | undefined;
+    publish: IPublisher<number, OrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<number, OrbitWorker, Orbit<any>[]>();
 
-    public set orbitGen(orbitFactory: IOrbitGen) {
-        this._orbitGen = orbitFactory;
+    getKey(): number {
+        return 0;
     }
 
-    public get orbitGen(): IOrbitGen {
-        if (this._orbitGen === undefined) {
-            throw Error('OrbitGen is not set');
+    hasWork(workObj: StarLevelWorker): boolean {
+        return true;
+    }
+
+    run(workObj: StarLevelWorker): Orbit<Star>[] {
+        const orbits = [];
+        let mod = 0;
+        for (let i = 0; i < workObj.qty; i++) {
+            const stats = this.calculateStats(
+                this.getStarClass(this.random.between(2, 12) + mod),
+                workObj.age,
+                this.random.between(1, 6),
+            );
+            stats.separation = i > 0 ? this.getSeparation(this.random.between(1, 6)) : 0;
+            const orbit = new Orbit<Star>(stats);
+            this.publish.getKeys().forEach((key: number) => {
+                const sub = this.publish.getSubscription(key);
+                const worker = new OrbitWorker(orbit.orbitStats, workObj.age);
+                if (sub && sub.hasWork(worker)) {
+                    orbit.orbitStats.orbits = sub.run(worker);
+                }
+            });
+            orbits.push(orbit);
+            mod += this.random.between(0, 5);
         }
 
-        return this._orbitGen;
+        return orbits;
     }
 
     public set random(rand: RandomSeedFactory) {
@@ -31,27 +56,6 @@ export default class StarGenerator implements IStarGen {
         }
 
         return this._random;
-    }
-
-    generate(age: number, qty: number): Orbit<Star>[] {
-        const orbits = [];
-        let mod = 0;
-        for (let i = 0; i < qty; i++) {
-            const stats = this.calculateStats(
-                this.getStarClass(this.random.between(2, 12) + mod),
-                age,
-                this.random.between(1, 6),
-            );
-            stats.separation = i > 0 ? this.getSeparation(this.random.between(1, 6)) : 0;
-            const orbit = new Orbit<Star>(stats);
-            if (this._orbitGen !== undefined) {
-                orbit.orbitStats.orbits = this.orbitGen.generate(orbit.orbitStats, age);
-            }
-            orbits.push(orbit);
-            mod += this.random.between(0, 5);
-        }
-
-        return orbits;
     }
 
     getStarClass(roll: number): string {

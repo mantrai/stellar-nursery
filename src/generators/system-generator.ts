@@ -1,23 +1,15 @@
 import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
 import System from '../objects/system';
-import ISystemGen from '../interfaces/i-system-gen';
-import IStarGen from '../interfaces/i-star-gen';
+import ISystemLevelGen from '../interfaces/i-system-level-gen';
+import IPublisher from "../interfaces/i-publisher";
+import Orbit from "../objects/orbit";
+import Star from "../objects/star";
+import StellarNurseryPublisher from "../stellar-nursery-publisher";
+import StarLevelWorker from "../objects/work/star-level-worker";
 
-export default class SystemGenerator implements ISystemGen {
+export default class SystemGenerator implements ISystemLevelGen {
     private _random: RandomSeedFactory | undefined;
-    private _starGen: IStarGen | undefined;
-
-    public set starGen(sf: IStarGen) {
-        this._starGen = sf;
-    }
-
-    public get starGen(): IStarGen {
-        if (this._starGen === undefined) {
-            throw Error('StarGen is not set');
-        }
-
-        return this._starGen;
-    }
+    public publish: IPublisher<number, StarLevelWorker, Orbit<Star>[]> = new StellarNurseryPublisher<number, StarLevelWorker, Orbit<Star>[]>();
 
     public set random(rand: RandomSeedFactory) {
         this._random = rand;
@@ -31,7 +23,7 @@ export default class SystemGenerator implements ISystemGen {
         return this._random;
     }
 
-    generate(): System {
+    run(): System {
         const system = new System();
         const roll = this.random.between(3, 18);
         system.type = 3; // SystemType.Trinary;
@@ -41,9 +33,13 @@ export default class SystemGenerator implements ISystemGen {
             system.type = 2; // SystemType.Binary;
         }
         system.age = this.random.between(0, 15);
-        if (this._starGen !== undefined) {
-            system.orbits = this.starGen.generate(system.age, system.type);
-        }
+        this.publish.getKeys().forEach((key: number) => {
+            const sub = this.publish.getSubscription(key);
+            const worker = new StarLevelWorker(system.age, system.type);
+            if (sub && sub.hasWork(worker)) {
+                system.orbits = sub.run(worker);
+            }
+        });
         return system;
     }
 }
