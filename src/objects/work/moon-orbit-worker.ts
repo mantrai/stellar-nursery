@@ -1,11 +1,11 @@
-import Star from "../star";
-import Orbit from "../orbit";
+import Star from '../star';
+import Orbit from '../orbit';
 
 export default class MoonOrbitWorker {
     star: Star;
-    age:number;
+    age: number;
     zone: number;
-    parent:Orbit<any>
+    parent: Orbit<any>;
 
     constructor(star: Star, age: number, zone: number, parent: Orbit<any>) {
         this.star = star;

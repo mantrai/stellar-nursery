@@ -1,11 +1,11 @@
-import BasePlanetGen from "./base-planet-gen";
-import IPlanetGen from "../../interfaces/i-planet-gen";
-import {PlanetType} from "../../types/enum";
-import PlanetaryStats from "../../objects/planetary/planetary-stats";
-import {Score} from "stellar-nursery-shared";
-import Orbit from "../../objects/orbit";
-import IPlanet from "../../interfaces/i-planet";
-import PlanetTypeWorker from "../../objects/work/planet-type-worker";
+import BasePlanetGen from './base-planet-gen';
+import IPlanetGen from '../../interfaces/i-planet-gen';
+import { PlanetType } from '../../types/enum';
+import PlanetaryStats from '../../objects/planetary/planetary-stats';
+import { Score } from 'stellar-nursery-shared';
+import Orbit from '../../objects/orbit';
+import IPlanet from '../../interfaces/i-planet';
+import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 
 export default class AsphodelianPlanetGen extends BasePlanetGen implements IPlanetGen {
     getKey(): number {
@@ -26,7 +26,8 @@ export default class AsphodelianPlanetGen extends BasePlanetGen implements IPlan
         stats.planetGroup = 'Helian';
         stats.planetClass = 'GeoHelian';
         stats.planetType = 'Asphodelian';
-        stats.description = 'These are worlds that were directly affected by their primary\'s transition from the main sequence; their atmosphere has been boiled away, leaving the surface exposed.';
+        stats.description =
+            "These are worlds that were directly affected by their primary's transition from the main sequence; their atmosphere has been boiled away, leaving the surface exposed.";
 
         workObj.planet.orbitStats.planetaryStats = stats;
         workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.planet);

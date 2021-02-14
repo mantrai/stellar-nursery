@@ -1,14 +1,18 @@
-import RandomSeedFactory from "stellar-nursery-shared/lib/random-seed-factory";
-import IPublisher from "../../interfaces/i-publisher";
-import MoonOrbitWorker from "../../objects/work/moon-orbit-worker";
-import Orbit from "../../objects/orbit";
-import StellarNurseryPublisher from "../../stellar-nursery-publisher";
-import IPlanet from "../../interfaces/i-planet";
-import Star from "../../objects/star";
+import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
+import IPublisher from '../../interfaces/i-publisher';
+import MoonOrbitWorker from '../../objects/work/moon-orbit-worker';
+import Orbit from '../../objects/orbit';
+import StellarNurseryPublisher from '../../stellar-nursery-publisher';
+import IPlanet from '../../interfaces/i-planet';
+import Star from '../../objects/star';
 
 export default class BasePlanetGen {
     protected _random: RandomSeedFactory | undefined;
-    publish: IPublisher<number, MoonOrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<number, MoonOrbitWorker, Orbit<any>[]>();
+    publish: IPublisher<number, MoonOrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<
+        number,
+        MoonOrbitWorker,
+        Orbit<any>[]
+    >();
 
     public set random(rand: RandomSeedFactory) {
         this._random = rand;
@@ -22,7 +26,7 @@ export default class BasePlanetGen {
         return this._random;
     }
 
-    public response(orbit: Orbit<IPlanet> ,star: Star, zone:number, age: number, parent?: Orbit<any>): Orbit<IPlanet> {
+    public response(orbit: Orbit<IPlanet>, star: Star, zone: number, age: number, parent?: Orbit<any>): Orbit<IPlanet> {
         if (parent === undefined) {
             this.publish.getKeys().forEach((key: number) => {
                 const sub = this.publish.getSubscription(key);

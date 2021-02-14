@@ -1,4 +1,3 @@
-import TerrestrialPlanetaryGen from "../generators/planet/category/terrestrial-planetary-gen";
 
 export enum Chemicals {
     Water = 'Water',

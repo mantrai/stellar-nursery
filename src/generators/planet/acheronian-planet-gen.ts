@@ -1,12 +1,11 @@
-import BasePlanetGen from "./base-planet-gen";
-import IPlanetGen from "../../interfaces/i-planet-gen";
-import {PlanetaryCategory, PlanetType} from "../../types/enum";
-import Star from "../../objects/star";
-import PlanetaryStats from "../../objects/planetary/planetary-stats";
-import {Score} from "stellar-nursery-shared";
-import Orbit from "../../objects/orbit";
-import IPlanet from "../../interfaces/i-planet";
-import PlanetTypeWorker from "../../objects/work/planet-type-worker";
+import BasePlanetGen from './base-planet-gen';
+import IPlanetGen from '../../interfaces/i-planet-gen';
+import { PlanetType } from '../../types/enum';
+import PlanetaryStats from '../../objects/planetary/planetary-stats';
+import { Score } from 'stellar-nursery-shared';
+import Orbit from '../../objects/orbit';
+import IPlanet from '../../interfaces/i-planet';
+import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 
 export default class AcheronianPlanetGen extends BasePlanetGen implements IPlanetGen {
     getKey(): number {
@@ -27,7 +26,8 @@ export default class AcheronianPlanetGen extends BasePlanetGen implements IPlane
         stats.planetGroup = 'Terrestrial';
         stats.planetClass = 'Telluric';
         stats.planetType = 'Acheronian';
-        stats.description = 'These are worlds that were directly affected by their primary\'s transition from the main sequence; the atmosphere and oceans have been boiled away, leaving a scorched, dead planet.\n';
+        stats.description =
+            "These are worlds that were directly affected by their primary's transition from the main sequence; the atmosphere and oceans have been boiled away, leaving a scorched, dead planet.\n";
 
         workObj.planet.orbitStats.planetaryStats = stats;
         workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);

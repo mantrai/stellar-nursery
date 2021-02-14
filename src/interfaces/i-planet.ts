@@ -1,5 +1,5 @@
-import PlanetaryStats from "../objects/planetary/planetary-stats";
-import Orbit from "../objects/orbit";
+import PlanetaryStats from '../objects/planetary/planetary-stats';
+import Orbit from '../objects/orbit';
 
 export default interface IPlanet {
     name: string;

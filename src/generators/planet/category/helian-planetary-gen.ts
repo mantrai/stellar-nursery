@@ -1,10 +1,10 @@
-import BasePlanetaryGen from "./base-planetary-gen";
-import Orbit from "../../../objects/orbit";
-import Helian from "../../../objects/planetary/helian";
-import {Zone} from "stellar-nursery-shared";
-import {PlanetaryCategory, PlanetType} from "../../../types/enum";
-import IPlanetCategoryGen from "../../../interfaces/i-planet-category-gen";
-import PlanetCategoryWorker from "../../../objects/work/planet-category-worker";
+import BasePlanetaryGen from './base-planetary-gen';
+import Orbit from '../../../objects/orbit';
+import Helian from '../../../objects/planetary/helian';
+import { Zone } from 'stellar-nursery-shared';
+import { PlanetaryCategory, PlanetType } from '../../../types/enum';
+import IPlanetCategoryGen from '../../../interfaces/i-planet-category-gen';
+import PlanetCategoryWorker from '../../../objects/work/planet-category-worker';
 
 export default class HelianPlanetaryGen extends BasePlanetaryGen implements IPlanetCategoryGen {
     constructor(min: number = 52, max: number = 68) {
@@ -44,6 +44,8 @@ export default class HelianPlanetaryGen extends BasePlanetaryGen implements IPla
                 break;
         }
 
-        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<Helian> | false;
+        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as
+            | Orbit<Helian>
+            | false;
     }
 }

@@ -2,12 +2,12 @@ import Orbit from '../../../objects/orbit';
 import Dwarf from '../../../objects/planetary/dwarf';
 import { PlanetaryCategory, PlanetType } from '../../../types/enum';
 import { Zone } from 'stellar-nursery-shared';
-import BasePlanetaryGen from "./base-planetary-gen";
-import IPlanetCategoryGen from "../../../interfaces/i-planet-category-gen";
-import PlanetCategoryWorker from "../../../objects/work/planet-category-worker";
+import BasePlanetaryGen from './base-planetary-gen';
+import IPlanetCategoryGen from '../../../interfaces/i-planet-category-gen';
+import PlanetCategoryWorker from '../../../objects/work/planet-category-worker';
 
 export default class DwarfPlanetaryGen extends BasePlanetaryGen implements IPlanetCategoryGen {
-    constructor(min:number = 20, max:number=36) {
+    constructor(min: number = 20, max: number = 36) {
         super();
         this._min = min;
         this._max = max;
@@ -36,7 +36,9 @@ export default class DwarfPlanetaryGen extends BasePlanetaryGen implements IPlan
                 break;
         }
 
-        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<Dwarf> | false;
+        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as
+            | Orbit<Dwarf>
+            | false;
     }
 
     generateEpistellar(roll: number, parent?: Orbit<any>): number {

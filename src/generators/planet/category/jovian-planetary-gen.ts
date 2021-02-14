@@ -1,12 +1,10 @@
-import BasePlanetaryGen from "./base-planetary-gen";
-import IOrbitGen from "../../../interfaces/i-orbit-gen";
-import Star from "../../../objects/star";
-import Orbit from "../../../objects/orbit";
-import {Zone} from "stellar-nursery-shared";
-import {PlanetaryCategory, PlanetType} from "../../../types/enum";
-import Jovian from "../../../objects/planetary/jovian";
-import IPlanetCategoryGen from "../../../interfaces/i-planet-category-gen";
-import PlanetCategoryWorker from "../../../objects/work/planet-category-worker";
+import BasePlanetaryGen from './base-planetary-gen';
+import Orbit from '../../../objects/orbit';
+import { Zone } from 'stellar-nursery-shared';
+import { PlanetaryCategory, PlanetType } from '../../../types/enum';
+import Jovian from '../../../objects/planetary/jovian';
+import IPlanetCategoryGen from '../../../interfaces/i-planet-category-gen';
+import PlanetCategoryWorker from '../../../objects/work/planet-category-worker';
 
 export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPlanetCategoryGen {
     constructor(min: number = 68, max: number = 100) {
@@ -14,7 +12,6 @@ export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPla
         this._min = min;
         this._max = max;
     }
-
 
     getKey(): string {
         return PlanetaryCategory.Jovian;
@@ -43,6 +40,8 @@ export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPla
                 break;
         }
 
-        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<Jovian> | false;
+        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as
+            | Orbit<Jovian>
+            | false;
     }
 }

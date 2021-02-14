@@ -1,5 +1,5 @@
 import PlanetaryStats from './planetary-stats';
-import Orbit from "../orbit";
+import Orbit from '../orbit';
 
 export default class BasePlanetary {
     public name: string = '';
