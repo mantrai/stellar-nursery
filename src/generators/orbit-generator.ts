@@ -3,51 +3,19 @@ import IOrbitGen from '../interfaces/i-orbit-gen';
 import Star from '../objects/star';
 import Orbit from '../objects/orbit';
 import { Score, Separation, Zone } from 'stellar-nursery-shared';
-import OrbitWorker from "../objects/work/orbit-worker";
-import StellarNurseryPublisher from "../stellar-nursery-publisher";
-import IPublisher from "../interfaces/i-publisher";
-import PlanetCategoryWorker from "../objects/work/planet-category-worker";
+import OrbitWorker from '../objects/work/orbit-worker';
+import StellarNurseryPublisher from '../stellar-nursery-publisher';
+import IPublisher from '../interfaces/i-publisher';
+import PlanetCategoryWorker from '../objects/work/planet-category-worker';
 
 export default class OrbitGenerator implements IOrbitGen {
+    publish: IPublisher<number, PlanetCategoryWorker, Orbit<any> | false> = new StellarNurseryPublisher<
+        number,
+        PlanetCategoryWorker,
+        Orbit<any> | false
+    >();
+
     private _random: RandomSeedFactory | undefined;
-    publish: IPublisher<string, PlanetCategoryWorker, Orbit<any> | false> = new StellarNurseryPublisher<string, PlanetCategoryWorker, Orbit<any> | false>();
-    getKey(): number {
-        return 0;
-    }
-    hasWork(workObj: OrbitWorker): boolean {
-        return this.publish.getKeys().length > 0;
-    }
-    run(workObj: OrbitWorker): Orbit<any>[] {
-        const planetCount: Map<number, number> = new Map<number, number>();
-        planetCount.set(Zone.Epistellar, this.getEpistellarZoneQty(workObj.star));
-        planetCount.set(Zone.InnerZone, this.getInnerZoneQty(workObj.star));
-        planetCount.set(Zone.OuterZone, this.getOuterZoneQty(workObj.star));
-        const orbits: Orbit<any>[] = [];
-
-        planetCount.forEach((qty: number,zone: number) => {
-            for (let i = 0; i < qty; i++) {
-                let roll = this.random.between(1, 100);
-                if (workObj.star.spectralClass === 'L') {
-                    roll -= 20;
-                }
-
-                this.publish.getKeys().some((key: string) => {
-                    const sub = this.publish.getSubscription(key);
-                    const worker = new PlanetCategoryWorker(roll, workObj.star, workObj.age, zone);
-                    if (sub && sub.hasWork(worker)) {
-                        const orbit: Orbit<any> | false = sub.run(worker);
-                        if (orbit) {
-                            orbits.push(orbit);
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-            }
-        });
-
-        return orbits;
-    }
 
     public get random(): RandomSeedFactory {
         if (this._random === undefined) {
@@ -59,6 +27,44 @@ export default class OrbitGenerator implements IOrbitGen {
 
     public set random(rand: RandomSeedFactory) {
         this._random = rand;
+    }
+
+    getKey(): number {
+        return 0;
+    }
+
+    hasWork(workObj: OrbitWorker): boolean {
+        return this.publish.getKeys().length > 0;
+    }
+
+    run(workObj: OrbitWorker): Orbit<any>[] {
+        const planetCount: Map<number, number> = new Map<number, number>();
+        planetCount.set(Zone.Epistellar, this.getEpistellarZoneQty(workObj.star));
+        planetCount.set(Zone.InnerZone, this.getInnerZoneQty(workObj.star));
+        planetCount.set(Zone.OuterZone, this.getOuterZoneQty(workObj.star));
+        const orbits: Orbit<any>[] = [];
+
+        planetCount.forEach((qty: number, zone: number) => {
+            for (let i = 0; i < qty; i++) {
+                let roll = this.random.between(1, 100);
+                if (workObj.star.spectralClass === 'L') {
+                    roll -= 20;
+                }
+
+                this.publish.getKeys().forEach((key: number) => {
+                    const sub = this.publish.getSubscription(key);
+                    const worker = new PlanetCategoryWorker(roll, workObj.star, workObj.age, zone);
+                    if (sub && sub.hasWork(worker)) {
+                        const orbit: Orbit<any> | false = sub.run(worker);
+                        if (orbit) {
+                            orbits.push(orbit);
+                        }
+                    }
+                });
+            }
+        });
+
+        return orbits;
     }
 
     getEpistellarZoneQty(star: Star): number {

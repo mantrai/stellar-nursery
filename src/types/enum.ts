@@ -1,5 +1,3 @@
-import TerrestrialPlanetaryGen from "../generators/planet/category/terrestrial-planetary-gen";
-
 export enum Chemicals {
     Water = 'Water',
     Ammonia = 'Ammonia',
@@ -10,12 +8,14 @@ export enum Chemicals {
     Chlorine = 'Chlorine',
 }
 
-export enum PlanetaryCategory {
-    Belt = 'Belt',
-    Dwarf = 'Dwarf',
-    Helian = 'Helian',
-    Jovian = 'Jovian',
-    Terrestrial = 'Terrestrial',
+export enum OrbitCategory {
+    None,
+    Belt,
+    Dwarf,
+    Helian,
+    Jovian,
+    Terrestrial,
+    Star,
 }
 
 export enum PlanetType {

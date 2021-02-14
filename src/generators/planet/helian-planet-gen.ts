@@ -1,12 +1,11 @@
-import BasePlanetGen from "./base-planet-gen";
-import IPlanetGen from "../../interfaces/i-planet-gen";
-import {PlanetType} from "../../types/enum";
-import Star from "../../objects/star";
-import PlanetaryStats from "../../objects/planetary/planetary-stats";
-import {Score} from "stellar-nursery-shared";
-import Orbit from "../../objects/orbit";
-import IPlanet from "../../interfaces/i-planet";
-import PlanetTypeWorker from "../../objects/work/planet-type-worker";
+import BasePlanetGen from './base-planet-gen';
+import IPlanetGen from '../../interfaces/i-planet-gen';
+import { PlanetType } from '../../types/enum';
+import PlanetStats from '../../objects/planet-stats';
+import { Score } from 'stellar-nursery-shared';
+import Orbit from '../../objects/orbit';
+import IPlanet from '../../interfaces/i-planet';
+import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 
 export default class HelianPlanetGen extends BasePlanetGen implements IPlanetGen {
     getKey(): number {
@@ -18,7 +17,7 @@ export default class HelianPlanetGen extends BasePlanetGen implements IPlanetGen
     }
 
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
-        const stats = new PlanetaryStats();
+        const stats = new PlanetStats();
         stats.size = this.random.between(10, 15);
         stats.atmosphere = Score.nD;
         const roll = this.random.between(1, 6);
@@ -31,13 +30,15 @@ export default class HelianPlanetGen extends BasePlanetGen implements IPlanetGen
         }
         stats.biosphere = Score.n0;
         stats.planetGroup = 'Helian';
-        stats.planetClass = (stats.hydrosphere >= Score.n9) ? 'GeoHelian' : 'Nebulous';
+        stats.planetClass = stats.hydrosphere >= Score.n9 ? 'GeoHelian' : 'Nebulous';
         stats.planetType = '';
         if (stats.hydrosphere >= Score.n9) {
-            stats.description = 'These are Helian worlds with masses ranging from 3 to 15 times that of Earth, and which lack a layer of liquid or super-condensed volatiles, having either expended them long ago, or never having had them to begin with.  Older, more stable regions may be heavily cratered, but much of the surface of these worlds tends to be geologically young.';
+            stats.description =
+                'These are Helian worlds with masses ranging from 3 to 15 times that of Earth, and which lack a layer of liquid or super-condensed volatiles, having either expended them long ago, or never having had them to begin with.  Older, more stable regions may be heavily cratered, but much of the surface of these worlds tends to be geologically young.';
             stats.planetClass = 'GeoHelian';
         } else {
-            stats.description = 'These are Helian worlds with masses ranging from 3 to 15 times that of Earth.  Their atmospheres are extremely dense and support a layer of super-condensed volatiles.';
+            stats.description =
+                'These are Helian worlds with masses ranging from 3 to 15 times that of Earth.  Their atmospheres are extremely dense and support a layer of super-condensed volatiles.';
             stats.planetClass = 'Nebulous';
         }
 
@@ -45,5 +46,4 @@ export default class HelianPlanetGen extends BasePlanetGen implements IPlanetGen
         workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.planet);
         return workObj.planet;
     }
-
 }

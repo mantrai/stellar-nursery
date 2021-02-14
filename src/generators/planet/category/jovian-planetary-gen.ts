@@ -1,12 +1,11 @@
-import BasePlanetaryGen from "./base-planetary-gen";
-import IOrbitGen from "../../../interfaces/i-orbit-gen";
-import Star from "../../../objects/star";
-import Orbit from "../../../objects/orbit";
-import {Zone} from "stellar-nursery-shared";
-import {PlanetaryCategory, PlanetType} from "../../../types/enum";
-import Jovian from "../../../objects/planetary/jovian";
-import IPlanetCategoryGen from "../../../interfaces/i-planet-category-gen";
-import PlanetCategoryWorker from "../../../objects/work/planet-category-worker";
+import BasePlanetaryGen from './base-planetary-gen';
+import Orbit from '../../../objects/orbit';
+import { Zone } from 'stellar-nursery-shared';
+import { OrbitCategory, PlanetType } from '../../../types/enum';
+import IPlanetCategoryGen from '../../../interfaces/i-planet-category-gen';
+import PlanetCategoryWorker from '../../../objects/work/planet-category-worker';
+import IPlanet from '../../../interfaces/i-planet';
+import Planet from '../../../objects/planet';
 
 export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPlanetCategoryGen {
     constructor(min: number = 68, max: number = 100) {
@@ -15,9 +14,8 @@ export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPla
         this._max = max;
     }
 
-
-    getKey(): string {
-        return PlanetaryCategory.Jovian;
+    getKey(): number {
+        return OrbitCategory.Jovian;
     }
 
     hasWork(workObj: PlanetCategoryWorker): boolean {
@@ -25,7 +23,7 @@ export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPla
     }
 
     run(workObj: PlanetCategoryWorker): Orbit<any> | false {
-        const planet = new Orbit<Jovian>(new Jovian());
+        const planet = new Orbit<IPlanet>(new Planet(this.getKey()));
         let type: number = -1;
         switch (workObj.zone) {
             case Zone.Epistellar:
@@ -43,6 +41,8 @@ export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPla
                 break;
         }
 
-        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<Jovian> | false;
+        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as
+            | Orbit<IPlanet>
+            | false;
     }
 }

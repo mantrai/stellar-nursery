@@ -1,9 +1,7 @@
-import PlanetaryStats from "../objects/planetary/planetary-stats";
-import Orbit from "../objects/orbit";
+import PlanetStats from '../objects/planet-stats';
+import IOrbitItem from './i-orbit-item';
 
-export default interface IPlanet {
-    name: string;
+export default interface IPlanet extends IOrbitItem {
     type: number;
-    planetaryStats: PlanetaryStats;
-    orbits: Orbit<any>[];
+    planetaryStats: PlanetStats;
 }

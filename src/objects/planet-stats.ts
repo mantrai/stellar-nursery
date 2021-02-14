@@ -1,4 +1,4 @@
-export default class PlanetaryStats {
+export default class PlanetStats {
     planetGroup: string = '';
     planetClass: string = '';
     planetType: string = '';

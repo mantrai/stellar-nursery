@@ -1,10 +1,11 @@
 import Orbit from '../../../objects/orbit';
-import {Zone} from 'stellar-nursery-shared';
-import BasePlanetaryGen from "./base-planetary-gen";
-import Terrestrial from "../../../objects/planetary/terrestrial";
-import {PlanetaryCategory, PlanetType} from "../../../types/enum";
-import IPlanetCategoryGen from "../../../interfaces/i-planet-category-gen";
-import PlanetCategoryWorker from "../../../objects/work/planet-category-worker";
+import { Zone } from 'stellar-nursery-shared';
+import BasePlanetaryGen from './base-planetary-gen';
+import { OrbitCategory, PlanetType } from '../../../types/enum';
+import IPlanetCategoryGen from '../../../interfaces/i-planet-category-gen';
+import PlanetCategoryWorker from '../../../objects/work/planet-category-worker';
+import IPlanet from '../../../interfaces/i-planet';
+import Planet from '../../../objects/planet';
 
 export default class TerrestrialPlanetaryGen extends BasePlanetaryGen implements IPlanetCategoryGen {
     constructor(min: number = 36, max: number = 52) {
@@ -13,8 +14,8 @@ export default class TerrestrialPlanetaryGen extends BasePlanetaryGen implements
         this._max = max;
     }
 
-    getKey(): string {
-        return PlanetaryCategory.Terrestrial;
+    getKey(): number {
+        return OrbitCategory.Terrestrial;
     }
 
     hasWork(workObj: PlanetCategoryWorker): boolean {
@@ -22,7 +23,7 @@ export default class TerrestrialPlanetaryGen extends BasePlanetaryGen implements
     }
 
     run(workObj: PlanetCategoryWorker): Orbit<any> | false {
-        const planet = new Orbit<Terrestrial>(new Terrestrial());
+        const planet = new Orbit<IPlanet>(new Planet(this.getKey()));
         let type: number = -1;
         switch (workObj.zone) {
             case Zone.Epistellar:
@@ -36,7 +37,9 @@ export default class TerrestrialPlanetaryGen extends BasePlanetaryGen implements
                 break;
         }
 
-        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<Terrestrial> | false;
+        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as
+            | Orbit<IPlanet>
+            | false;
     }
 
     generateEpistellar(roll: number): number {

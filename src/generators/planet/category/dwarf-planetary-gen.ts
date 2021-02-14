@@ -1,20 +1,21 @@
 import Orbit from '../../../objects/orbit';
-import Dwarf from '../../../objects/planetary/dwarf';
-import { PlanetaryCategory, PlanetType } from '../../../types/enum';
+import { OrbitCategory, PlanetType } from '../../../types/enum';
 import { Zone } from 'stellar-nursery-shared';
-import BasePlanetaryGen from "./base-planetary-gen";
-import IPlanetCategoryGen from "../../../interfaces/i-planet-category-gen";
-import PlanetCategoryWorker from "../../../objects/work/planet-category-worker";
+import BasePlanetaryGen from './base-planetary-gen';
+import IPlanetCategoryGen from '../../../interfaces/i-planet-category-gen';
+import PlanetCategoryWorker from '../../../objects/work/planet-category-worker';
+import Planet from '../../../objects/planet';
+import IPlanet from '../../../interfaces/i-planet';
 
 export default class DwarfPlanetaryGen extends BasePlanetaryGen implements IPlanetCategoryGen {
-    constructor(min:number = 20, max:number=36) {
+    constructor(min: number = 20, max: number = 36) {
         super();
         this._min = min;
         this._max = max;
     }
 
-    getKey(): string {
-        return PlanetaryCategory.Dwarf;
+    getKey(): number {
+        return OrbitCategory.Dwarf;
     }
 
     hasWork(workObj: PlanetCategoryWorker): boolean {
@@ -22,7 +23,7 @@ export default class DwarfPlanetaryGen extends BasePlanetaryGen implements IPlan
     }
 
     run(workObj: PlanetCategoryWorker): Orbit<any> | false {
-        const planet = new Orbit<Dwarf>(new Dwarf());
+        const planet = new Orbit<IPlanet>(new Planet(this.getKey()));
         let type: number = -1;
         switch (workObj.zone) {
             case Zone.Epistellar:
@@ -36,12 +37,14 @@ export default class DwarfPlanetaryGen extends BasePlanetaryGen implements IPlan
                 break;
         }
 
-        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<Dwarf> | false;
+        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as
+            | Orbit<IPlanet>
+            | false;
     }
 
     generateEpistellar(roll: number, parent?: Orbit<any>): number {
         let output: number;
-        if (parent !== undefined && parent.type === PlanetaryCategory.Belt) {
+        if (parent !== undefined && parent.category === OrbitCategory.Belt) {
             roll -= 2;
         }
         if (roll <= 3) {
@@ -62,9 +65,9 @@ export default class DwarfPlanetaryGen extends BasePlanetaryGen implements IPlan
     generateInner(roll: number, parent?: Orbit<any>): number {
         let output: number;
         if (parent !== undefined) {
-            roll -= parent.type === PlanetaryCategory.Belt ? 2 : 0;
-            roll += parent.type === PlanetaryCategory.Helian ? 1 : 0;
-            roll += parent.type === PlanetaryCategory.Jovian ? 2 : 0;
+            roll -= parent.category === OrbitCategory.Belt ? 2 : 0;
+            roll += parent.category === OrbitCategory.Helian ? 1 : 0;
+            roll += parent.category === OrbitCategory.Jovian ? 2 : 0;
         }
         if (roll <= 4) {
             output = PlanetType.Rockball;
@@ -86,9 +89,9 @@ export default class DwarfPlanetaryGen extends BasePlanetaryGen implements IPlan
     generateOuter(roll: number, parent?: Orbit<any>): number {
         let output: number;
         if (parent !== undefined) {
-            roll -= parent.type === PlanetaryCategory.Belt ? 1 : 0;
-            roll += parent.type === PlanetaryCategory.Helian ? 1 : 0;
-            roll += parent.type === PlanetaryCategory.Jovian ? 2 : 0;
+            roll -= parent.category === OrbitCategory.Belt ? 1 : 0;
+            roll += parent.category === OrbitCategory.Helian ? 1 : 0;
+            roll += parent.category === OrbitCategory.Jovian ? 2 : 0;
         }
         if (roll <= 0) {
             output = PlanetType.Rockball;

@@ -3,15 +3,18 @@ import Orbit from '../objects/orbit';
 import Star from '../objects/star';
 import { Separation } from 'stellar-nursery-shared';
 import IStarLevelGen from '../interfaces/i-star-level-gen';
-import IOrbitGen from '../interfaces/i-orbit-gen';
 import StarLevelWorker from '../objects/work/star-level-worker';
-import IPublisher from "../interfaces/i-publisher";
-import OrbitWorker from "../objects/work/orbit-worker";
-import StellarNurseryPublisher from "../stellar-nursery-publisher";
+import IPublisher from '../interfaces/i-publisher';
+import OrbitWorker from '../objects/work/orbit-worker';
+import StellarNurseryPublisher from '../stellar-nursery-publisher';
 
 export default class StarGenerator implements IStarLevelGen {
     private _random: RandomSeedFactory | undefined;
-    publish: IPublisher<number, OrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<number, OrbitWorker, Orbit<any>[]>();
+    publish: IPublisher<number, OrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<
+        number,
+        OrbitWorker,
+        Orbit<any>[]
+    >();
 
     getKey(): number {
         return 0;
@@ -32,14 +35,12 @@ export default class StarGenerator implements IStarLevelGen {
             );
             stats.separation = i > 0 ? this.getSeparation(this.random.between(1, 6)) : 0;
             const orbit = new Orbit<Star>(stats);
-            this.publish.getKeys().some((key: number) => {
+            this.publish.getKeys().forEach((key: number) => {
                 const sub = this.publish.getSubscription(key);
                 const worker = new OrbitWorker(orbit.orbitStats, workObj.age);
                 if (sub && sub.hasWork(worker)) {
                     orbit.orbitStats.orbits = sub.run(worker);
-                    return true;
                 }
-                return false;
             });
             orbits.push(orbit);
             mod += this.random.between(0, 5);

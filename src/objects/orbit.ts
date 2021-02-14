@@ -1,4 +1,6 @@
-export default class Orbit<T> {
+import IOrbitItem from '../interfaces/i-orbit-item';
+
+export default class Orbit<T extends IOrbitItem> {
     public name: string = '';
     private _orbitStats: T | undefined;
 
@@ -18,7 +20,7 @@ export default class Orbit<T> {
         this.orbitStats = stats;
     }
 
-    public get type(): string {
-        return typeof this._orbitStats;
+    public get category(): number {
+        return this.orbitStats.orbitCategory;
     }
 }
