@@ -1,15 +1,15 @@
 import BasePlanetGen from './base-planet-gen';
 import IPlanetGen from '../../interfaces/i-planet-gen';
+import Orbit from '../../objects/orbit';
+import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 import { PlanetType } from '../../types/enum';
 import PlanetStats from '../../objects/planet-stats';
 import { Score } from 'stellar-nursery-shared';
-import Orbit from '../../objects/orbit';
 import IPlanet from '../../interfaces/i-planet';
-import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 
-export default class AcheronianPlanetGen extends BasePlanetGen implements IPlanetGen {
+export default class ChthonianPlanetGen extends BasePlanetGen implements IPlanetGen {
     getKey(): number {
-        return PlanetType.Acheronian;
+        return PlanetType.Chthonian;
     }
 
     hasWork(workObj: PlanetTypeWorker): boolean {
@@ -19,15 +19,15 @@ export default class AcheronianPlanetGen extends BasePlanetGen implements IPlane
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
 
-        stats.size = this.random.between(5, 10);
+        stats.size = Score.nG;
         stats.atmosphere = Score.n1;
         stats.hydrosphere = Score.n0;
         stats.biosphere = Score.n0;
-        stats.planetGroup = 'Terrestrial';
-        stats.planetClass = 'Telluric';
-        stats.planetType = 'Acheronian';
+        stats.planetGroup = 'Jovian';
+        stats.planetClass = 'Chthonian';
+        stats.planetType = '';
         stats.description =
-            "These are worlds that were directly affected by their primary's transition from the main sequence; the atmosphere and oceans have been boiled away, leaving a scorched, dead planet.\n";
+            'These are Jovian worlds with masses ranging from 0.015 to 0.24 times that of Jupiter.  They are the exposed cores of Jovian worlds which have lost their gaseous envelopes through solar evaporation.  This typically occurs to older Jovians in tight solar orbits, or Jovians that have been greatly affected by the evolution of their primary sun.';
 
         workObj.planet.orbitStats.planetaryStats = stats;
         workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);

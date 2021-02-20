@@ -1,15 +1,15 @@
 import BasePlanetGen from './base-planet-gen';
 import IPlanetGen from '../../interfaces/i-planet-gen';
+import Orbit from '../../objects/orbit';
+import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 import { PlanetType } from '../../types/enum';
 import PlanetStats from '../../objects/planet-stats';
 import { Score } from 'stellar-nursery-shared';
-import Orbit from '../../objects/orbit';
 import IPlanet from '../../interfaces/i-planet';
-import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 
-export default class AcheronianPlanetGen extends BasePlanetGen implements IPlanetGen {
+export default class StygianPlanetGen extends BasePlanetGen implements IPlanetGen {
     getKey(): number {
-        return PlanetType.Acheronian;
+        return PlanetType.Stygian;
     }
 
     hasWork(workObj: PlanetTypeWorker): boolean {
@@ -19,15 +19,15 @@ export default class AcheronianPlanetGen extends BasePlanetGen implements IPlane
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
 
-        stats.size = this.random.between(5, 10);
-        stats.atmosphere = Score.n1;
+        stats.size = this.random.between(0, 6);
+        stats.atmosphere = Score.n0;
         stats.hydrosphere = Score.n0;
         stats.biosphere = Score.n0;
-        stats.planetGroup = 'Terrestrial';
-        stats.planetClass = 'Telluric';
-        stats.planetType = 'Acheronian';
+        stats.planetGroup = 'Dwarf';
+        stats.planetClass = 'GeoPassive';
+        stats.planetType = 'Stygian';
         stats.description =
-            "These are worlds that were directly affected by their primary's transition from the main sequence; the atmosphere and oceans have been boiled away, leaving a scorched, dead planet.\n";
+            "These are Dwarf Terrestrial worlds which have survived the movement of their primary sun off of the main sequence, and its subsequent evolution towards a stellar corpse.  The surfaces of these bodies show ample evidence of transformation due to the primary's stellar evolution.";
 
         workObj.planet.orbitStats.planetaryStats = stats;
         workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);

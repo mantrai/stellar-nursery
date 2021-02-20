@@ -13,7 +13,7 @@ export default class AreanPlanetGen extends BasePlanetGen implements IPlanetGen 
     }
 
     hasWork(workObj: PlanetTypeWorker): boolean {
-        return true;
+        return workObj.type === this.getKey();
     }
 
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {

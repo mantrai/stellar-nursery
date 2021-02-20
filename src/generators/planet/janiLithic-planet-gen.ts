@@ -1,15 +1,15 @@
 import BasePlanetGen from './base-planet-gen';
 import IPlanetGen from '../../interfaces/i-planet-gen';
-import { PlanetType } from '../../types/enum';
+import Orbit from '../../objects/orbit';
+import PlanetTypeWorker from '../../objects/work/planet-type-worker';
+import { Chemicals, PlanetType } from '../../types/enum';
 import PlanetStats from '../../objects/planet-stats';
 import { Score } from 'stellar-nursery-shared';
-import Orbit from '../../objects/orbit';
 import IPlanet from '../../interfaces/i-planet';
-import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 
-export default class AcheronianPlanetGen extends BasePlanetGen implements IPlanetGen {
+export default class JaniLithicPlanetGen extends BasePlanetGen implements IPlanetGen {
     getKey(): number {
-        return PlanetType.Acheronian;
+        return PlanetType.JaniLithic;
     }
 
     hasWork(workObj: PlanetTypeWorker): boolean {
@@ -20,14 +20,14 @@ export default class AcheronianPlanetGen extends BasePlanetGen implements IPlane
         const stats = new PlanetStats();
 
         stats.size = this.random.between(5, 10);
-        stats.atmosphere = Score.n1;
+        stats.atmosphere = this.random.between(1, 6) >= 4 ? Score.nA : Score.n1;
         stats.hydrosphere = Score.n0;
         stats.biosphere = Score.n0;
         stats.planetGroup = 'Terrestrial';
-        stats.planetClass = 'Telluric';
-        stats.planetType = 'Acheronian';
+        stats.planetClass = 'Epistellar';
+        stats.planetType = 'JaniLithic';
         stats.description =
-            "These are worlds that were directly affected by their primary's transition from the main sequence; the atmosphere and oceans have been boiled away, leaving a scorched, dead planet.\n";
+            'These are rocky, dry, geologically active worlds with greatly varying degrees of geological activity.  As such, their atmospheres are also quite varied, but typically are primarily composed of carbon dioxide.';
 
         workObj.planet.orbitStats.planetaryStats = stats;
         workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);

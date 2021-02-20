@@ -17,6 +17,18 @@ import AreanPlanetGen from './generators/planet/arean-planet-gen';
 import AridPlanetGen from './generators/planet/arid-planet-gen';
 import AsphodelianPlanetGen from './generators/planet/asphodelian-planet-gen';
 import IPlanetCategoryGen from './interfaces/i-planet-category-gen';
+import ChthonianPlanetGen from './generators/planet/chthonian-planet-gen';
+import HebeanPlanetGen from './generators/planet/hebean-planet-gen';
+import JaniLithicPlanetGen from './generators/planet/janiLithic-planet-gen';
+import MeltballPlanetGen from './generators/planet/meltball-planet-gen';
+import OceanicPlanetGen from './generators/planet/oceanic-planet-gen';
+import PrometheanPlanetGen from './generators/planet/promethean-planet-gen';
+import RockballPlanetGen from './generators/planet/rockball-planet-gen';
+import SnowballPlanetGen from './generators/planet/snowball-planet-gen';
+import StygianPlanetGen from './generators/planet/stygian-planet-gen';
+import TectonicPlanetGen from './generators/planet/tectonic-planet-gen';
+import TelluricPlanetGen from './generators/planet/telluric-planet-gen';
+import VesperianPlanetGen from './generators/planet/vesperian-planet-gen';
 
 export default class StellaNurseryFactory {
     protected _random: RandomSeedFactory | undefined;
@@ -42,9 +54,21 @@ export default class StellaNurseryFactory {
             new AreanPlanetGen(),
             new AridPlanetGen(),
             new AsphodelianPlanetGen(),
+            new ChthonianPlanetGen(),
+            new HebeanPlanetGen(),
             new HelianPlanetGen(),
+            new JaniLithicPlanetGen(),
             new JovianPlanetGen(),
+            new MeltballPlanetGen(),
+            new OceanicPlanetGen(),
             new PanthalassicPlanetGen(),
+            new PrometheanPlanetGen(),
+            new RockballPlanetGen(),
+            new SnowballPlanetGen(),
+            new StygianPlanetGen(),
+            new TectonicPlanetGen(),
+            new TelluricPlanetGen(),
+            new VesperianPlanetGen(),
         ];
 
         // define Main Generators

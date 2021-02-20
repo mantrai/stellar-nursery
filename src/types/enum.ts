@@ -6,6 +6,7 @@ export enum Chemicals {
     Carbon = 'Carbon',
     Sulfur = 'Sulfur',
     Chlorine = 'Chlorine',
+    Metals = 'Metals',
 }
 
 export enum OrbitCategory {

@@ -13,7 +13,7 @@ export default class AsphodelianPlanetGen extends BasePlanetGen implements IPlan
     }
 
     hasWork(workObj: PlanetTypeWorker): boolean {
-        return true;
+        return workObj.type === this.getKey();
     }
 
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
