@@ -9,6 +9,12 @@ export enum Chemicals {
     Metals = 'Metals',
 }
 
+export enum Rings {
+    None,
+    Minor,
+    Complex,
+}
+
 export enum OrbitCategory {
     None,
     Belt,
@@ -17,6 +23,7 @@ export enum OrbitCategory {
     Jovian,
     Terrestrial,
     Star,
+    Ring,
 }
 
 export enum PlanetType {

@@ -19,11 +19,15 @@ export default class TerrestrialPlanetaryGen extends BasePlanetaryGen implements
     }
 
     hasWork(workObj: PlanetCategoryWorker): boolean {
-        return this.between(workObj.roll, this._min, this._max);
+        if (workObj.parent === undefined) {
+            return this.between(workObj.roll, this._min, this._max);
+        } else {
+            return workObj.parent.category === this.getKey();
+        }
     }
 
     run(workObj: PlanetCategoryWorker): Orbit<any> {
-        const planet = new Orbit<IPlanet>(new Planet(this.getKey()));
+        let planet = new Orbit<IPlanet>(new Planet(this.getKey()));
         let type: number = -1;
         switch (workObj.zone) {
             case Zone.Epistellar:
@@ -37,7 +41,19 @@ export default class TerrestrialPlanetaryGen extends BasePlanetaryGen implements
                 break;
         }
 
+        if (workObj.parent === undefined) {
+            planet = this.generateChildren(planet);
+        }
+
         return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<IPlanet>;
+    }
+
+    generateChildren(planet: Orbit<IPlanet>): Orbit<IPlanet> {
+        if (this.random.between(1, 6) >= 5) {
+            planet.orbitStats.orbits.push(new Orbit<IPlanet>(new Planet(OrbitCategory.Dwarf)));
+        }
+
+        return planet;
     }
 
     generateEpistellar(roll: number): number {

@@ -19,11 +19,15 @@ export default class HelianPlanetaryGen extends BasePlanetaryGen implements IPla
     }
 
     hasWork(workObj: PlanetCategoryWorker): boolean {
-        return this.between(workObj.roll, this._min, this._max);
+        if (workObj.parent === undefined) {
+            return this.between(workObj.roll, this._min, this._max);
+        } else {
+            return workObj.parent.category === this.getKey();
+        }
     }
 
     run(workObj: PlanetCategoryWorker): Orbit<any> {
-        const planet = new Orbit<IPlanet>(new Planet(this.getKey()));
+        let planet = new Orbit<IPlanet>(new Planet(this.getKey()));
         let type: number = -1;
         switch (workObj.zone) {
             case Zone.Epistellar:
@@ -45,6 +49,24 @@ export default class HelianPlanetaryGen extends BasePlanetaryGen implements IPla
                 break;
         }
 
+        if (workObj.parent === undefined) {
+            planet = this.generateChildren(planet);
+        }
+
         return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<IPlanet>;
+    }
+
+    generateChildren(planet: Orbit<IPlanet>): Orbit<IPlanet> {
+        const children = this.random.between(1, 6) - 3;
+        if (children > 0) {
+            if (this.random.between(1, 6) === 6) {
+                planet.orbitStats.orbits.push(new Orbit<IPlanet>(new Planet(OrbitCategory.Terrestrial)));
+            }
+            while (planet.orbitStats.orbits.length < children) {
+                planet.orbitStats.orbits.push(new Orbit<IPlanet>(new Planet(OrbitCategory.Dwarf)));
+            }
+        }
+
+        return planet;
     }
 }

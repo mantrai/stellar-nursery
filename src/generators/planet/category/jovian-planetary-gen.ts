@@ -1,7 +1,7 @@
 import BasePlanetaryGen from './base-planetary-gen';
 import Orbit from '../../../objects/orbit';
 import { Zone } from 'stellar-nursery-shared';
-import { OrbitCategory, PlanetType } from '../../../types/enum';
+import { OrbitCategory, PlanetType, Rings } from '../../../types/enum';
 import IPlanetCategoryGen from '../../../interfaces/i-planet-category-gen';
 import PlanetCategoryWorker from '../../../objects/work/planet-category-worker';
 import IPlanet from '../../../interfaces/i-planet';
@@ -19,11 +19,15 @@ export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPla
     }
 
     hasWork(workObj: PlanetCategoryWorker): boolean {
-        return this.between(workObj.roll, this._min, this._max);
+        if (workObj.parent === undefined) {
+            return this.between(workObj.roll, this._min, this._max);
+        } else {
+            return workObj.parent.category === this.getKey();
+        }
     }
 
     run(workObj: PlanetCategoryWorker): Orbit<any> {
-        const planet = new Orbit<IPlanet>(new Planet(this.getKey()));
+        let planet = new Orbit<IPlanet>(new Planet(this.getKey()));
         let type: number = -1;
         switch (workObj.zone) {
             case Zone.Epistellar:
@@ -41,6 +45,32 @@ export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPla
                 break;
         }
 
+        if (workObj.parent === undefined) {
+            planet = this.generateChildren(planet);
+        }
+
         return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<IPlanet>;
+    }
+
+    generateChildren(planet: Orbit<IPlanet>): Orbit<IPlanet> {
+        const children = this.random.between(1, 6);
+        if (this.random.between(1, 6) === 6) {
+            if (this.random.between(1, 6) === 6) {
+                planet.orbitStats.orbits.push(new Orbit<IPlanet>(new Planet(OrbitCategory.Helian)));
+            } else {
+                planet.orbitStats.orbits.push(new Orbit<IPlanet>(new Planet(OrbitCategory.Terrestrial)));
+            }
+        }
+        while (planet.orbitStats.orbits.length < children) {
+            planet.orbitStats.orbits.push(new Orbit<IPlanet>(new Planet(OrbitCategory.Dwarf)));
+        }
+
+        if (this.random.between(1, 6) >= 5) {
+            planet.orbitStats.planetaryStats.rings = Rings.Complex;
+        } else {
+            planet.orbitStats.planetaryStats.rings = Rings.Minor;
+        }
+
+        return planet;
     }
 }

@@ -29,6 +29,7 @@ import StygianPlanetGen from './generators/planet/stygian-planet-gen';
 import TectonicPlanetGen from './generators/planet/tectonic-planet-gen';
 import TelluricPlanetGen from './generators/planet/telluric-planet-gen';
 import VesperianPlanetGen from './generators/planet/vesperian-planet-gen';
+import MoonGenerator from './generators/moon-generator';
 
 export default class StellaNurseryFactory {
     protected _random: RandomSeedFactory | undefined;
@@ -75,11 +76,13 @@ export default class StellaNurseryFactory {
         this._systemGenerator = new SystemGenerator();
         const starGen = new StarGenerator();
         const orbitGen = new OrbitGenerator();
+        const moonGen = new MoonGenerator();
 
         // add random
         this._systemGenerator.random = this._random;
         starGen.random = this._random;
         orbitGen.random = this._random;
+        moonGen.random = this._random;
 
         for (const planet of planetSubscriptions) {
             planet.random = this._random;
@@ -87,7 +90,9 @@ export default class StellaNurseryFactory {
                 category.random = this._random;
                 category.publish.subscribe(planet);
                 orbitGen.publish.subscribe(category);
+                moonGen.publish.subscribe(category);
             }
+            planet.publish.subscribe(moonGen);
         }
 
         // join
