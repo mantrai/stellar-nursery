@@ -1,6 +1,6 @@
 import Orbit from './orbit';
 import IOrbitItem from '../interfaces/i-orbit-item';
-import { OrbitCategory } from '../types/enum';
+import {OrbitCategory} from '../types/enum';
 
 export default class Star implements IOrbitItem {
     public spectralClass: string = '';
@@ -9,6 +9,16 @@ export default class Star implements IOrbitItem {
         return this.spectralClass + '-' + this.luminosityClass;
     }
     public separation: number = 0;
-    public orbits: Orbit<Star>[] = [];
+    public orbits: Orbit<IOrbitItem>[] = [];
     public orbitCategory: number = OrbitCategory.Star;
+
+    public toJSON(): object {
+        return {
+            spectralClass: this.spectralClass,
+            luminosityClass: this.luminosityClass,
+            spectralLuminosityClass: this.spectralLuminosityClass,
+            orbits: this.orbits,
+            orbitCategory: OrbitCategory[this.orbitCategory],
+        };
+    }
 }

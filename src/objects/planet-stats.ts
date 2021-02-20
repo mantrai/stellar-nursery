@@ -1,3 +1,6 @@
+import {Rings} from '../types/enum';
+import {Score} from "stellar-nursery-shared";
+
 export default class PlanetStats {
     planetGroup: string = '';
     planetClass: string = '';
@@ -8,4 +11,20 @@ export default class PlanetStats {
     biosphere: number = 0;
     description: string = '';
     chemistry: string[] = [];
+    rings: number = Rings.None;
+
+    public toJSON(): object {
+        return {
+            planetGroup: this.planetGroup,
+            planetClass: this.planetClass,
+            planetType: this.planetType,
+            size: Score[this.size].replace('n', ''),
+            atmosphere: Score[this.atmosphere].replace('n', ''),
+            hydrosphere: Score[this.hydrosphere].replace('n', ''),
+            biosphere: Score[this.biosphere].replace('n', ''),
+            description: this.description,
+            chemistry: this.chemistry,
+            rings: Rings[this.rings],
+        };
+    }
 }

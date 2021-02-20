@@ -23,4 +23,15 @@ export default class Orbit<T extends IOrbitItem> {
     public get category(): number {
         return this.orbitStats.orbitCategory;
     }
+
+    public toJSON() {
+        let json = {
+            name: this.name
+        }
+        if (this._orbitStats !== undefined) {
+            json = { ...json, ...this._orbitStats.toJSON()};
+        }
+
+        return json;
+    }
 }
