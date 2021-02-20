@@ -22,7 +22,7 @@ export default class HelianPlanetaryGen extends BasePlanetaryGen implements IPla
         return this.between(workObj.roll, this._min, this._max);
     }
 
-    run(workObj: PlanetCategoryWorker): Orbit<any> | false {
+    run(workObj: PlanetCategoryWorker): Orbit<any> {
         const planet = new Orbit<IPlanet>(new Planet(this.getKey()));
         let type: number = -1;
         switch (workObj.zone) {
@@ -45,8 +45,6 @@ export default class HelianPlanetaryGen extends BasePlanetaryGen implements IPla
                 break;
         }
 
-        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as
-            | Orbit<IPlanet>
-            | false;
+        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<IPlanet>;
     }
 }

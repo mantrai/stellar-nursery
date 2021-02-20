@@ -5,6 +5,7 @@ import IPlanet from '../../../interfaces/i-planet';
 import IPublisher from '../../../interfaces/i-publisher';
 import PlanetTypeWorker from '../../../objects/work/planet-type-worker';
 import StellarNurseryPublisher from '../../../stellar-nursery-publisher';
+import OrbitWorker from '../../../objects/work/orbit-worker';
 
 export default class BasePlanetaryGen {
     public publish: IPublisher<number, PlanetTypeWorker, Orbit<any>> = new StellarNurseryPublisher<
@@ -40,15 +41,15 @@ export default class BasePlanetaryGen {
         age: number,
         type: number,
         parent?: Orbit<any>,
-    ): Orbit<IPlanet> | false {
-        if (this.publish.hasSubscription(type)) {
-            const sub = this.publish.getSubscription(type);
-            const worker = new PlanetTypeWorker(orbit, star, zone, age, parent);
+    ): Orbit<IPlanet> {
+        this.publish.getKeys().forEach((key: number) => {
+            const sub = this.publish.getSubscription(key);
+            const worker = new PlanetTypeWorker(key, orbit, star, zone, age, parent);
             if (sub && sub.hasWork(worker)) {
-                return sub.run(worker);
+                orbit = sub.run(worker);
             }
-        }
+        });
 
-        return false;
+        return orbit;
     }
 }

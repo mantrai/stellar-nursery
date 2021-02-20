@@ -8,12 +8,14 @@ export default class PlanetTypeWorker {
     zone: number;
     age: number;
     parent?: Orbit<IPlanet>;
+    type: number;
 
-    constructor(planet: Orbit<IPlanet>, star: Star, zone: number, age: number, parent?: Orbit<IPlanet>) {
+    constructor(type: number, planet: Orbit<IPlanet>, star: Star, zone: number, age: number, parent?: Orbit<IPlanet>) {
         this.planet = planet;
         this.star = star;
         this.age = age;
         this.parent = parent;
         this.zone = zone;
+        this.type = type;
     }
 }
