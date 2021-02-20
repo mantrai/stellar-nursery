@@ -6,6 +6,7 @@ import Orbit from '../objects/orbit';
 import StellarNurseryPublisher from '../stellar-nursery-publisher';
 import StarLevelWorker from '../objects/work/star-level-worker';
 import Star from '../objects/star';
+import {SystemType} from "stellar-nursery-shared";
 
 export default class SystemGenerator implements ISystemLevelGen {
     private _random: RandomSeedFactory | undefined;
@@ -30,11 +31,11 @@ export default class SystemGenerator implements ISystemLevelGen {
     run(): System {
         const system = new System();
         const roll = this.random.between(3, 18);
-        system.type = 3; // SystemType.Trinary;
+        system.type = SystemType.Trinary;
         if (roll <= 10) {
-            system.type = 1; // SystemType.Solitary;
+            system.type = SystemType.Solitary;
         } else if (roll <= 15) {
-            system.type = 2; // SystemType.Binary;
+            system.type = SystemType.Binary;
         }
         system.age = this.random.between(0, 15);
         this.publish.getKeys().forEach((key: number) => {
