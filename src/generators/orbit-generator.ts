@@ -9,10 +9,10 @@ import IPublisher from '../interfaces/i-publisher';
 import PlanetCategoryWorker from '../objects/work/planet-category-worker';
 
 export default class OrbitGenerator implements IOrbitGen {
-    publish: IPublisher<number, PlanetCategoryWorker, Orbit<any> | false> = new StellarNurseryPublisher<
+    publish: IPublisher<number, PlanetCategoryWorker, Orbit<any>> = new StellarNurseryPublisher<
         number,
         PlanetCategoryWorker,
-        Orbit<any> | false
+        Orbit<any>
     >();
 
     private _random: RandomSeedFactory | undefined;
@@ -55,7 +55,7 @@ export default class OrbitGenerator implements IOrbitGen {
                     const sub = this.publish.getSubscription(key);
                     const worker = new PlanetCategoryWorker(roll, workObj.star, workObj.age, zone);
                     if (sub && sub.hasWork(worker)) {
-                        const orbit: Orbit<any> | false = sub.run(worker);
+                        const orbit: Orbit<any> = sub.run(worker);
                         if (orbit) {
                             orbits.push(orbit);
                         }
