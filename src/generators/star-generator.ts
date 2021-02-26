@@ -1,7 +1,7 @@
 import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
 import Orbit from '../objects/orbit';
 import Star from '../objects/star';
-import { Separation } from 'stellar-nursery-shared';
+import {Separation} from 'stellar-nursery-shared';
 import IStarLevelGen from '../interfaces/i-star-level-gen';
 import StarLevelWorker from '../objects/work/star-level-worker';
 import IPublisher from '../interfaces/i-publisher';
@@ -9,12 +9,23 @@ import OrbitWorker from '../objects/work/orbit-worker';
 import StellarNurseryPublisher from '../stellar-nursery-publisher';
 
 export default class StarGenerator implements IStarLevelGen {
-    private _random: RandomSeedFactory | undefined;
-    publish: IPublisher<number, OrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<
-        number,
+    publish: IPublisher<number, OrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<number,
         OrbitWorker,
-        Orbit<any>[]
-    >();
+        Orbit<any>[]>();
+
+    private _random: RandomSeedFactory | undefined;
+
+    public get random(): RandomSeedFactory {
+        if (this._random === undefined) {
+            throw Error('Random seed factory undefined');
+        }
+
+        return this._random;
+    }
+
+    public set random(rand: RandomSeedFactory) {
+        this._random = rand;
+    }
 
     getKey(): number {
         return 0;
@@ -48,18 +59,6 @@ export default class StarGenerator implements IStarLevelGen {
         }
 
         return orbits;
-    }
-
-    public set random(rand: RandomSeedFactory) {
-        this._random = rand;
-    }
-
-    public get random(): RandomSeedFactory {
-        if (this._random === undefined) {
-            throw Error('Random seed factory undefined');
-        }
-
-        return this._random;
     }
 
     getStarClass(roll: number): string {

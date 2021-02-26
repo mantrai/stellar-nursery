@@ -1,18 +1,19 @@
 import IPlanet from '../interfaces/i-planet';
 import Orbit from './orbit';
 import PlanetStats from './planet-stats';
-import { OrbitCategory, PlanetType } from '../types/enum';
+import {OrbitCategory, PlanetType} from '../types/enum';
 
 export default class Planet implements IPlanet {
     public orbitCategory: number = OrbitCategory.None;
     public type: number = PlanetType.None;
     public orbits: Orbit<IPlanet>[] = [];
-    private _planetaryStats: PlanetStats;
 
     constructor(orbitCategory: number) {
         this.orbitCategory = orbitCategory;
         this._planetaryStats = new PlanetStats();
     }
+
+    private _planetaryStats: PlanetStats;
 
     public get planetaryStats(): PlanetStats {
         return this._planetaryStats;
@@ -30,7 +31,7 @@ export default class Planet implements IPlanet {
         };
 
         if (this._planetaryStats !== undefined) {
-            json = { ...json, ...this._planetaryStats.toJSON() };
+            json = {...json, ...this._planetaryStats.toJSON()};
         }
 
         return json;

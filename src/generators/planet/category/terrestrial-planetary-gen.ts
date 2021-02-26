@@ -1,7 +1,7 @@
 import Orbit from '../../../objects/orbit';
-import { Zone } from 'stellar-nursery-shared';
+import {Zone} from 'stellar-nursery-shared';
 import BasePlanetaryGen from './base-planetary-gen';
-import { OrbitCategory, PlanetType } from '../../../types/enum';
+import {OrbitCategory, PlanetType} from '../../../types/enum';
 import IPlanetCategoryGen from '../../../interfaces/i-planet-category-gen';
 import PlanetCategoryWorker from '../../../objects/work/planet-category-worker';
 import IPlanet from '../../../interfaces/i-planet';

@@ -2,6 +2,11 @@ import IOrbitItem from '../interfaces/i-orbit-item';
 
 export default class Orbit<T extends IOrbitItem> {
     public name: string = '';
+
+    public constructor(stats: T) {
+        this.orbitStats = stats;
+    }
+
     private _orbitStats: T | undefined;
 
     public get orbitStats(): T {
@@ -16,10 +21,6 @@ export default class Orbit<T extends IOrbitItem> {
         this._orbitStats = stats;
     }
 
-    public constructor(stats: T) {
-        this.orbitStats = stats;
-    }
-
     public get category(): number {
         return this.orbitStats.orbitCategory;
     }
@@ -30,7 +31,7 @@ export default class Orbit<T extends IOrbitItem> {
             name: this.name,
         };
         if (this._orbitStats !== undefined) {
-            json = { ...json, ...this._orbitStats.toJSON() };
+            json = {...json, ...this._orbitStats.toJSON()};
         }
 
         return json;

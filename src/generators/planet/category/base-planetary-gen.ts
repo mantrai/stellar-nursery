@@ -7,11 +7,9 @@ import PlanetTypeWorker from '../../../objects/work/planet-type-worker';
 import StellarNurseryPublisher from '../../../stellar-nursery-publisher';
 
 export default class BasePlanetaryGen {
-    public publish: IPublisher<number, PlanetTypeWorker, Orbit<any>> = new StellarNurseryPublisher<
-        number,
+    public publish: IPublisher<number, PlanetTypeWorker, Orbit<any>> = new StellarNurseryPublisher<number,
         PlanetTypeWorker,
-        Orbit<any>
-    >();
+        Orbit<any>>();
     protected _min: number = -1;
     protected _max: number = -1;
 

@@ -9,7 +9,10 @@ import OrbitWorker from '../objects/work/orbit-worker';
 export default interface IStarLevelGen extends ISubscriber<number, StarLevelWorker, Orbit<Star>[]> {
     random: RandomSeedFactory;
     publish: IPublisher<number, OrbitWorker, Orbit<any>[]>;
+
     getKey(): number;
+
     hasWork(workObj: StarLevelWorker): boolean;
+
     run(workObj: StarLevelWorker): Orbit<Star>[];
 }

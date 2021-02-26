@@ -8,7 +8,10 @@ import MoonOrbitWorker from '../objects/work/moon-orbit-worker';
 export default interface IMoonGen extends ISubscriber<number, MoonOrbitWorker, Orbit<any>[]> {
     random: RandomSeedFactory;
     publish: IPublisher<number, PlanetCategoryWorker, Orbit<any>>;
+
     getKey(): number;
+
     hasWork(workObj: MoonOrbitWorker): boolean;
+
     run(workObj: MoonOrbitWorker): Orbit<any>[];
 }

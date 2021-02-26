@@ -8,5 +8,6 @@ import StarLevelWorker from '../objects/work/star-level-worker';
 export default interface ISystemLevelGen {
     random: RandomSeedFactory;
     publish: IPublisher<number, StarLevelWorker, Orbit<Star>[]>;
+
     run(): System;
 }

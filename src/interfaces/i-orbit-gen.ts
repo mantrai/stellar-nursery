@@ -8,7 +8,10 @@ import PlanetCategoryWorker from '../objects/work/planet-category-worker';
 export default interface IOrbitGen extends ISubscriber<number, OrbitWorker, Orbit<any>[]> {
     random: RandomSeedFactory;
     publish: IPublisher<number, PlanetCategoryWorker, Orbit<any>>;
+
     getKey(): number;
+
     hasWork(workObj: OrbitWorker): boolean;
+
     run(workObj: OrbitWorker): Orbit<any>[];
 }

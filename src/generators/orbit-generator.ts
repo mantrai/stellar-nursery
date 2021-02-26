@@ -2,18 +2,16 @@ import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
 import IOrbitGen from '../interfaces/i-orbit-gen';
 import Star from '../objects/star';
 import Orbit from '../objects/orbit';
-import { Score, Separation, Zone } from 'stellar-nursery-shared';
+import {Score, Separation, Zone} from 'stellar-nursery-shared';
 import OrbitWorker from '../objects/work/orbit-worker';
 import StellarNurseryPublisher from '../stellar-nursery-publisher';
 import IPublisher from '../interfaces/i-publisher';
 import PlanetCategoryWorker from '../objects/work/planet-category-worker';
 
 export default class OrbitGenerator implements IOrbitGen {
-    publish: IPublisher<number, PlanetCategoryWorker, Orbit<any>> = new StellarNurseryPublisher<
-        number,
+    publish: IPublisher<number, PlanetCategoryWorker, Orbit<any>> = new StellarNurseryPublisher<number,
         PlanetCategoryWorker,
-        Orbit<any>
-    >();
+        Orbit<any>>();
 
     private _random: RandomSeedFactory | undefined;
 

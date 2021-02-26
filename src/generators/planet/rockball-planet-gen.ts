@@ -2,9 +2,9 @@ import BasePlanetGen from './base-planet-gen';
 import IPlanetGen from '../../interfaces/i-planet-gen';
 import Orbit from '../../objects/orbit';
 import PlanetTypeWorker from '../../objects/work/planet-type-worker';
-import { Chemicals, PlanetType } from '../../types/enum';
+import {Chemicals, PlanetType} from '../../types/enum';
 import PlanetStats from '../../objects/planet-stats';
-import { Score, Zone } from 'stellar-nursery-shared';
+import {Score, Zone} from 'stellar-nursery-shared';
 import IPlanet from '../../interfaces/i-planet';
 
 export default class RockballPlanetGen extends BasePlanetGen implements IPlanetGen {
