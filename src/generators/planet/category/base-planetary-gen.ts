@@ -5,7 +5,6 @@ import IPlanet from '../../../interfaces/i-planet';
 import IPublisher from '../../../interfaces/i-publisher';
 import PlanetTypeWorker from '../../../objects/work/planet-type-worker';
 import StellarNurseryPublisher from '../../../stellar-nursery-publisher';
-import {PlanetType} from "../../../types/enum";
 
 export default class BasePlanetaryGen {
     public publish: IPublisher<number, PlanetTypeWorker, Orbit<any>> = new StellarNurseryPublisher<

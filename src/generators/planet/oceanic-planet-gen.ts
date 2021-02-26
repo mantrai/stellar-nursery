@@ -21,8 +21,8 @@ export default class OceanicPlanetGen extends BasePlanetGen implements IPlanetGe
         let roll: number = this.oceanicChemicalRoll(workObj);
 
         let ageMod: number = 0;
-        let chemical: number = 0;
-        let classType: { pc: string; pt: string; pd: string }[] = [];
+        let chemical: number;
+        let classType: { pc: string; pt: string; pd: string }[];
         if (roll <= 6) {
             stats.chemistry.push(Chemicals.Water);
             chemical = 1;

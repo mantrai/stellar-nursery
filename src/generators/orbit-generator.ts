@@ -33,6 +33,7 @@ export default class OrbitGenerator implements IOrbitGen {
         return 0;
     }
 
+    // noinspection JSUnusedLocalSymbols
     hasWork(workObj: OrbitWorker): boolean {
         return this.publish.getKeys().length > 0;
     }

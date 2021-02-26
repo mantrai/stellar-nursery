@@ -2,7 +2,6 @@ import IPublisher from '../interfaces/i-publisher';
 import Orbit from '../objects/orbit';
 import StellarNurseryPublisher from '../stellar-nursery-publisher';
 import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
-import PlanetCategoryWorker from '../objects/work/planet-category-worker';
 import IPlanetGen from '../interfaces/i-planet-gen';
 import MoonOrbitWorker from '../objects/work/moon-orbit-worker';
 import { OrbitCategory, PlanetType } from '../types/enum';
@@ -35,6 +34,7 @@ export default class DesirabilityGenerator implements IPlanetGen {
         return PlanetType.Snowball;
     }
 
+    // noinspection JSUnusedLocalSymbols
     hasWork(workObj: PlanetTypeWorker): boolean {
         return true;
     }

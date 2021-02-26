@@ -2,14 +2,14 @@ import BasePlanetGen from './base-planet-gen';
 import IPlanetGen from '../../interfaces/i-planet-gen';
 import Orbit from '../../objects/orbit';
 import PlanetTypeWorker from '../../objects/work/planet-type-worker';
-import { Chemicals, PlanetType } from '../../types/enum';
+import { PlanetType } from '../../types/enum';
 import PlanetStats from '../../objects/planet-stats';
 import { Score } from 'stellar-nursery-shared';
 import IPlanet from '../../interfaces/i-planet';
 
-export default class JaniLithicPlanetGen extends BasePlanetGen implements IPlanetGen {
+export default class JanilithicPlanetGen extends BasePlanetGen implements IPlanetGen {
     getKey(): number {
-        return PlanetType.JaniLithic;
+        return PlanetType.Janilithic;
     }
 
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
@@ -21,7 +21,7 @@ export default class JaniLithicPlanetGen extends BasePlanetGen implements IPlane
         stats.biosphere = Score.n0;
         stats.planetGroup = 'Terrestrial';
         stats.planetClass = 'Epistellar';
-        stats.planetType = 'JaniLithic';
+        stats.planetType = 'Janilithic';
         stats.description =
             'These are rocky, dry, geologically active worlds with greatly varying degrees of geological activity.  As such, their atmospheres are also quite varied, but typically are primarily composed of carbon dioxide.';
 

@@ -5,8 +5,8 @@ import Orbit from '../../objects/orbit';
 import StellarNurseryPublisher from '../../stellar-nursery-publisher';
 import IPlanet from '../../interfaces/i-planet';
 import Star from '../../objects/star';
-import {OrbitCategory, PlanetType} from "../../types/enum";
-import PlanetTypeWorker from "../../objects/work/planet-type-worker";
+import { OrbitCategory, PlanetType } from '../../types/enum';
+import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 
 export default class BasePlanetGen {
     publish: IPublisher<number, MoonOrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<
@@ -35,8 +35,8 @@ export default class BasePlanetGen {
 
     public hasWork(workObj: PlanetTypeWorker): boolean {
         let result = workObj.type === this.getKey();
-        if (workObj.star.luminosityClass === "III" || workObj.star.spectralClass === "D") {
-            switch(workObj.type) {
+        if (workObj.star.luminosityClass === 'III' || workObj.star.spectralClass === 'D') {
+            switch (workObj.type) {
                 case OrbitCategory.Dwarf:
                     result = PlanetType.Stygian === this.getKey();
                     break;

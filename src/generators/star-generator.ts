@@ -20,6 +20,7 @@ export default class StarGenerator implements IStarLevelGen {
         return 0;
     }
 
+    // noinspection JSUnusedLocalSymbols
     hasWork(workObj: StarLevelWorker): boolean {
         return true;
     }

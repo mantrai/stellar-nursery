@@ -2,7 +2,6 @@ import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
 import Orbit from '../objects/orbit';
 import ISubscriber from './i-subscriber';
 import IPublisher from './i-publisher';
-import OrbitWorker from '../objects/work/orbit-worker';
 import PlanetCategoryWorker from '../objects/work/planet-category-worker';
 import MoonOrbitWorker from '../objects/work/moon-orbit-worker';
 

@@ -54,7 +54,7 @@ export default class TerrestrialPlanetaryGen extends BasePlanetaryGen implements
                 planet.orbitStats.type = type;
             } else {
                 planet = workObj.current;
-                type   = workObj.current.category;
+                type = workObj.current.category;
             }
         }
 
@@ -72,7 +72,7 @@ export default class TerrestrialPlanetaryGen extends BasePlanetaryGen implements
     generateEpistellar(roll: number): number {
         let output: number;
         if (roll <= 4) {
-            output = PlanetType.JaniLithic;
+            output = PlanetType.Janilithic;
         } else if (roll <= 5) {
             output = PlanetType.Vesperian;
         } else {

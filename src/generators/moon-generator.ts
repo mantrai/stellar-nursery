@@ -1,8 +1,5 @@
 import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
-import Star from '../objects/star';
 import Orbit from '../objects/orbit';
-import { Score, Separation, Zone } from 'stellar-nursery-shared';
-import OrbitWorker from '../objects/work/orbit-worker';
 import StellarNurseryPublisher from '../stellar-nursery-publisher';
 import IPublisher from '../interfaces/i-publisher';
 import PlanetCategoryWorker from '../objects/work/planet-category-worker';
@@ -45,7 +42,14 @@ export default class MoonGenerator implements IMoonGen {
         workObj.current.orbitStats.orbits.forEach((orbit, index) => {
             this.publish.getKeys().forEach((key: number) => {
                 const sub = this.publish.getSubscription(key);
-                const worker = new PlanetCategoryWorker(0, workObj.star, workObj.age, workObj.zone, workObj.current, orbit as Orbit<IPlanet>);
+                const worker = new PlanetCategoryWorker(
+                    0,
+                    workObj.star,
+                    workObj.age,
+                    workObj.zone,
+                    workObj.current,
+                    orbit as Orbit<IPlanet>,
+                );
                 if (sub && sub.hasWork(worker)) {
                     orbit = sub.run(worker);
                     if (orbit) {

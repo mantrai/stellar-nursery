@@ -58,7 +58,7 @@ export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPla
                 planet.orbitStats.type = type;
             } else {
                 planet = workObj.current;
-                type   = workObj.current.category;
+                type = workObj.current.category;
             }
         }
 

@@ -53,7 +53,7 @@ export default class DwarfPlanetaryGen extends BasePlanetaryGen implements IPlan
                 planet.orbitStats.type = type;
             } else {
                 planet = workObj.current;
-                type   = workObj.current.category;
+                type = workObj.current.category;
             }
         }
 

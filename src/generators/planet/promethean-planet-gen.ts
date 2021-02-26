@@ -21,7 +21,7 @@ export default class PrometheanPlanetGen extends BasePlanetGen implements IPlane
         const roll: number = this.prometheanChemicalRoll(workObj);
 
         let ageMod: number = 0;
-        let chemical: number = 0;
+        let chemical: number;
         let classType: { pc: string; pt: string; pd: string };
         if (roll <= 4) {
             stats.chemistry.push(Chemicals.Water);

@@ -4,7 +4,7 @@ import Orbit from '../../objects/orbit';
 import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 import { Chemicals, PlanetType } from '../../types/enum';
 import PlanetStats from '../../objects/planet-stats';
-import { Score, Zone } from 'stellar-nursery-shared';
+import { Score } from 'stellar-nursery-shared';
 import IPlanet from '../../interfaces/i-planet';
 
 export default class VesperianPlanetGen extends BasePlanetGen implements IPlanetGen {
@@ -18,7 +18,7 @@ export default class VesperianPlanetGen extends BasePlanetGen implements IPlanet
 
         const roll = this.random.between(2, 12);
 
-        let chem = 'none';
+        let chem: string;
         if (roll <= 11) {
             stats.chemistry.push(Chemicals.Water);
             chem = Chemicals.Water;
