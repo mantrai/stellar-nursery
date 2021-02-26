@@ -24,12 +24,13 @@ export default class Orbit<T extends IOrbitItem> {
         return this.orbitStats.orbitCategory;
     }
 
+    // noinspection JSUnusedGlobalSymbols
     public toJSON() {
         let json = {
-            name: this.name
-        }
+            name: this.name,
+        };
         if (this._orbitStats !== undefined) {
-            json = { ...json, ...this._orbitStats.toJSON()};
+            json = { ...json, ...this._orbitStats.toJSON() };
         }
 
         return json;

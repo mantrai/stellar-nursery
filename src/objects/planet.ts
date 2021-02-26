@@ -1,11 +1,11 @@
 import IPlanet from '../interfaces/i-planet';
 import Orbit from './orbit';
 import PlanetStats from './planet-stats';
-import {OrbitCategory, PlanetType} from '../types/enum';
+import { OrbitCategory, PlanetType } from '../types/enum';
 
 export default class Planet implements IPlanet {
     public orbitCategory: number = OrbitCategory.None;
-    public type: number = 5;
+    public type: number = PlanetType.None;
     public orbits: Orbit<IPlanet>[] = [];
     private _planetaryStats: PlanetStats;
 
@@ -23,14 +23,14 @@ export default class Planet implements IPlanet {
     }
 
     public toJSON(): object {
-        let json =  {
+        let json = {
             orbitCategory: OrbitCategory[this.orbitCategory],
             type: PlanetType[this.type],
             orbits: this.orbits,
         };
 
         if (this._planetaryStats !== undefined) {
-            json = { ...json, ...this._planetaryStats.toJSON()};
+            json = { ...json, ...this._planetaryStats.toJSON() };
         }
 
         return json;

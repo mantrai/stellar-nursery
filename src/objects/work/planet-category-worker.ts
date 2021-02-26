@@ -8,12 +8,21 @@ export default class PlanetCategoryWorker {
     age: number;
     zone: number;
     parent?: Orbit<IPlanet>;
+    current?: Orbit<IPlanet>;
 
-    constructor(roll: number, star: Star, age: number, zone: number, parent?: Orbit<IPlanet>) {
+    constructor(
+        roll: number,
+        star: Star,
+        age: number,
+        zone: number,
+        parent?: Orbit<IPlanet>,
+        current?: Orbit<IPlanet>,
+    ) {
         this.roll = roll;
         this.star = star;
         this.age = age;
         this.zone = zone;
         this.parent = parent;
+        this.current = current;
     }
 }

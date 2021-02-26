@@ -19,7 +19,7 @@ import AsphodelianPlanetGen from './generators/planet/asphodelian-planet-gen';
 import IPlanetCategoryGen from './interfaces/i-planet-category-gen';
 import ChthonianPlanetGen from './generators/planet/chthonian-planet-gen';
 import HebeanPlanetGen from './generators/planet/hebean-planet-gen';
-import JaniLithicPlanetGen from './generators/planet/janiLithic-planet-gen';
+import JanilithicPlanetGen from './generators/planet/janilithic-planet-gen';
 import MeltballPlanetGen from './generators/planet/meltball-planet-gen';
 import OceanicPlanetGen from './generators/planet/oceanic-planet-gen';
 import PrometheanPlanetGen from './generators/planet/promethean-planet-gen';
@@ -30,6 +30,7 @@ import TectonicPlanetGen from './generators/planet/tectonic-planet-gen';
 import TelluricPlanetGen from './generators/planet/telluric-planet-gen';
 import VesperianPlanetGen from './generators/planet/vesperian-planet-gen';
 import MoonGenerator from './generators/moon-generator';
+import DesirabilityGenerator from './generators/desirability-generator';
 
 export default class StellaNurseryFactory {
     protected _random: RandomSeedFactory | undefined;
@@ -58,7 +59,7 @@ export default class StellaNurseryFactory {
             new ChthonianPlanetGen(),
             new HebeanPlanetGen(),
             new HelianPlanetGen(),
-            new JaniLithicPlanetGen(),
+            new JanilithicPlanetGen(),
             new JovianPlanetGen(),
             new MeltballPlanetGen(),
             new OceanicPlanetGen(),
@@ -77,18 +78,21 @@ export default class StellaNurseryFactory {
         const starGen = new StarGenerator();
         const orbitGen = new OrbitGenerator();
         const moonGen = new MoonGenerator();
+        const desire = new DesirabilityGenerator();
 
         // add random
         this._systemGenerator.random = this._random;
         starGen.random = this._random;
         orbitGen.random = this._random;
         moonGen.random = this._random;
+        desire.random = this._random;
 
         for (const planet of planetSubscriptions) {
             planet.random = this._random;
             for (const category of categorySubscriptions) {
                 category.random = this._random;
                 category.publish.subscribe(planet);
+                category.publish.subscribe(desire);
                 orbitGen.publish.subscribe(category);
                 moonGen.publish.subscribe(category);
             }
@@ -98,6 +102,10 @@ export default class StellaNurseryFactory {
         // join
         starGen.publish.subscribe(orbitGen);
         this._systemGenerator.publish.subscribe(starGen);
+    }
+
+    public getSeed() {
+        return this._random !== undefined ? this._random.getSeed() : -1;
     }
 
     public run() {

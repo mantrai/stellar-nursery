@@ -1,6 +1,6 @@
 import Orbit from './orbit';
 import Star from './star';
-import {SystemType} from "stellar-nursery-shared";
+import { SystemType } from 'stellar-nursery-shared';
 
 export default class System {
     public name: string = '';
@@ -8,13 +8,13 @@ export default class System {
     public type: number = SystemType.Solitary;
     public orbits: Orbit<Star>[] = [];
 
+    // noinspection JSUnusedGlobalSymbols
     public toJSON(): object {
-        console.log('toJSONRan');
         return {
             name: this.name,
             type: SystemType[this.type],
             age: this.age,
-            orbits: this.orbits
+            orbits: this.orbits,
         };
     }
 }

@@ -1,5 +1,5 @@
-import {Rings} from '../types/enum';
-import {Score} from "stellar-nursery-shared";
+import { Rings } from '../types/enum';
+import { Score } from 'stellar-nursery-shared';
 
 export default class PlanetStats {
     planetGroup: string = '';
@@ -11,6 +11,8 @@ export default class PlanetStats {
     biosphere: number = 0;
     description: string = '';
     chemistry: string[] = [];
+    population: number = 0;
+    desirability: number = 0;
     rings: number = Rings.None;
 
     public toJSON(): object {
@@ -22,6 +24,8 @@ export default class PlanetStats {
             atmosphere: Score[this.atmosphere].replace('n', ''),
             hydrosphere: Score[this.hydrosphere].replace('n', ''),
             biosphere: Score[this.biosphere].replace('n', ''),
+            population: Score[this.population].replace('n', ''),
+            desirability: this.desirability,
             description: this.description,
             chemistry: this.chemistry,
             rings: Rings[this.rings],

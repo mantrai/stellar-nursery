@@ -23,10 +23,10 @@ export enum OrbitCategory {
     Jovian,
     Terrestrial,
     Star,
-    Ring,
 }
 
 export enum PlanetType {
+    None,
     Acheronian,
     Arean,
     Arid,
@@ -34,7 +34,7 @@ export enum PlanetType {
     Chthonian,
     Hebean,
     Helian,
-    JaniLithic,
+    Janilithic,
     Jovian,
     Meltball,
     Oceanic,
