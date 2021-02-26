@@ -36,23 +36,25 @@ export default class MoonGenerator implements IMoonGen {
     }
 
     hasWork(workObj: MoonOrbitWorker): boolean {
-        return this.publish.getKeys().length > 0;
+        // if workObj.parent is defined this has already been run before and we dont do moon of moons.
+        return this.publish.getKeys().length > 0 && workObj.parent === undefined;
     }
 
     run(workObj: MoonOrbitWorker): Orbit<any>[] {
-        workObj.parent.orbitStats.orbits.forEach((orbits, index) => {
+        // loop though moons
+        workObj.current.orbitStats.orbits.forEach((orbit, index) => {
             this.publish.getKeys().forEach((key: number) => {
                 const sub = this.publish.getSubscription(key);
-                const worker = new PlanetCategoryWorker(0, workObj.star, workObj.age, workObj.zone, workObj.parent);
+                const worker = new PlanetCategoryWorker(0, workObj.star, workObj.age, workObj.zone, workObj.current, orbit as Orbit<IPlanet>);
                 if (sub && sub.hasWork(worker)) {
-                    const orbit: Orbit<any> = sub.run(worker);
+                    orbit = sub.run(worker);
                     if (orbit) {
-                        workObj.parent.orbitStats.orbits[index] = orbit;
+                        workObj.current.orbitStats.orbits[index] = orbit;
                     }
                 }
             });
         });
 
-        return workObj.parent.orbitStats.orbits;
+        return workObj.current.orbitStats.orbits;
     }
 }
