@@ -12,10 +12,6 @@ export default class PanthalassicPlanetGen extends BasePlanetGen implements IPla
         return PlanetType.Panthalassic;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
         stats.size = this.random.between(10, 15);
@@ -59,7 +55,7 @@ export default class PanthalassicPlanetGen extends BasePlanetGen implements IPla
             "These are Helian worlds with masses ranging from 3 to 13 times that of Earth.  They are actually best described as aborted gas giants, having initially begun their formation beyond their solar system's snowline.  However, tidal dragging caused by interactions with the accretion disk caused them to migrate inward of the snowline, where their growth was slowed or halted due to the sudden lack of abundant icy materials (which swiftly feed the growth of Jovian worlds).  However, being composed of largely icy materials, they develop tremendously deep oceanic surfaces and thick atmospheres of water, hydrogen, and oxygen.";
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.planet);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
         return workObj.planet;
     }
 }

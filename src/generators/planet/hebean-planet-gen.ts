@@ -12,10 +12,6 @@ export default class HebeanPlanetGen extends BasePlanetGen implements IPlanetGen
         return PlanetType.Hebean;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
 

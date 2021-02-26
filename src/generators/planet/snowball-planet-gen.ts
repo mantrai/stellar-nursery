@@ -12,10 +12,6 @@ export default class SnowballPlanetGen extends BasePlanetGen implements IPlanetG
         return PlanetType.Snowball;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
         stats.size = this.random.between(0, 5);

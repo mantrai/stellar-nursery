@@ -12,10 +12,6 @@ export default class AridPlanetGen extends BasePlanetGen implements IPlanetGen {
         return PlanetType.Arid;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
 
@@ -67,7 +63,7 @@ export default class AridPlanetGen extends BasePlanetGen implements IPlanetGen {
         stats.planetClass = 'Arid';
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.planet);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
         return workObj.planet;
     }
 }

@@ -12,10 +12,6 @@ export default class MeltballPlanetGen extends BasePlanetGen implements IPlanetG
         return PlanetType.Meltball;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
 

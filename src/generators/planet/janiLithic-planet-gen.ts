@@ -12,10 +12,6 @@ export default class JaniLithicPlanetGen extends BasePlanetGen implements IPlane
         return PlanetType.JaniLithic;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
 

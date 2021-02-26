@@ -22,31 +22,44 @@ export default class JovianPlanetaryGen extends BasePlanetaryGen implements IPla
         if (workObj.parent === undefined) {
             return this.between(workObj.roll, this._min, this._max);
         } else {
-            return workObj.parent.category === this.getKey();
+            if (workObj.current === undefined) {
+                return false;
+            }
+            return workObj.current.category === this.getKey();
         }
     }
 
     run(workObj: PlanetCategoryWorker): Orbit<any> {
         let planet = new Orbit<IPlanet>(new Planet(this.getKey()));
         let type: number = -1;
-        switch (workObj.zone) {
-            case Zone.Epistellar:
-                if (this.random.between(1, 6) <= 5) {
-                    type = PlanetType.Jovian;
-                } else {
-                    type = PlanetType.Chthonian;
-                }
-                break;
-            case Zone.InnerZone:
-                type = PlanetType.Jovian;
-                break;
-            case Zone.OuterZone:
-                type = PlanetType.Jovian;
-                break;
-        }
-
         if (workObj.parent === undefined) {
+            switch (workObj.zone) {
+                case Zone.Epistellar:
+                    if (this.random.between(1, 6) <= 5) {
+                        type = PlanetType.Jovian;
+                    } else {
+                        type = PlanetType.Chthonian;
+                    }
+                    break;
+                case Zone.InnerZone:
+                    type = PlanetType.Jovian;
+                    break;
+                case Zone.OuterZone:
+                    type = PlanetType.Jovian;
+                    break;
+            }
+
+            planet.orbitStats.type = type;
+
             planet = this.generateChildren(planet);
+        } else {
+            if (workObj.current === undefined) {
+                type = OrbitCategory.Dwarf;
+                planet.orbitStats.type = type;
+            } else {
+                planet = workObj.current;
+                type   = workObj.current.category;
+            }
         }
 
         return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<IPlanet>;

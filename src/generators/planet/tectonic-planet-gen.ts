@@ -12,10 +12,6 @@ export default class TectonicPlanetGen extends BasePlanetGen implements IPlanetG
         return PlanetType.Tectonic;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
         stats.size = this.random.between(5, 10);

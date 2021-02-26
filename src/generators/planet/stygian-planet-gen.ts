@@ -12,10 +12,6 @@ export default class StygianPlanetGen extends BasePlanetGen implements IPlanetGe
         return PlanetType.Stygian;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
 

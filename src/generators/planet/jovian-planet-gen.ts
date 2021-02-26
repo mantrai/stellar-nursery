@@ -12,10 +12,6 @@ export default class JovianPlanetGen extends BasePlanetGen implements IPlanetGen
         return PlanetType.Jovian;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
         stats.size = Score.nG;
@@ -67,7 +63,7 @@ export default class JovianPlanetGen extends BasePlanetGen implements IPlanetGen
         }
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.planet);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
         return workObj.planet;
     }
 }

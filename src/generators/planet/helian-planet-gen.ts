@@ -12,10 +12,6 @@ export default class HelianPlanetGen extends BasePlanetGen implements IPlanetGen
         return PlanetType.Helian;
     }
 
-    hasWork(workObj: PlanetTypeWorker): boolean {
-        return workObj.type === this.getKey();
-    }
-
     run(workObj: PlanetTypeWorker): Orbit<IPlanet> {
         const stats = new PlanetStats();
         stats.size = this.random.between(10, 15);
@@ -43,7 +39,7 @@ export default class HelianPlanetGen extends BasePlanetGen implements IPlanetGen
         }
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.planet);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
         return workObj.planet;
     }
 }

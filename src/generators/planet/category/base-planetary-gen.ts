@@ -5,7 +5,7 @@ import IPlanet from '../../../interfaces/i-planet';
 import IPublisher from '../../../interfaces/i-publisher';
 import PlanetTypeWorker from '../../../objects/work/planet-type-worker';
 import StellarNurseryPublisher from '../../../stellar-nursery-publisher';
-import OrbitWorker from '../../../objects/work/orbit-worker';
+import {PlanetType} from "../../../types/enum";
 
 export default class BasePlanetaryGen {
     public publish: IPublisher<number, PlanetTypeWorker, Orbit<any>> = new StellarNurseryPublisher<
@@ -44,7 +44,7 @@ export default class BasePlanetaryGen {
     ): Orbit<IPlanet> {
         this.publish.getKeys().forEach((key: number) => {
             const sub = this.publish.getSubscription(key);
-            const worker = new PlanetTypeWorker(key, orbit, star, zone, age, parent);
+            const worker = new PlanetTypeWorker(type, orbit, star, zone, age, parent);
             if (sub && sub.hasWork(worker)) {
                 orbit = sub.run(worker);
             }
