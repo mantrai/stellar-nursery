@@ -1,15 +1,15 @@
 import ISubscriber from './i-subscriber';
 
-export default interface IPublisher<K, O, R> {
-    bulkSubscribe(subscribers: Map<K, ISubscriber<K, O, R>>): IPublisher<K, O, R>;
+export default interface IPublisher<O, R> {
+    bulkSubscribe(subscribers: Map<number, ISubscriber<O, R>>): IPublisher<O, R>;
 
-    getSubscribers(): Map<K, ISubscriber<K, O, R>>;
+    getSubscribers(): Map<number, ISubscriber<O, R>>;
 
-    subscribe(subscriber: ISubscriber<K, O, R>): IPublisher<K, O, R>;
+    subscribe(subscriber: ISubscriber<O, R>): IPublisher<O, R>;
 
-    hasSubscription(key: K): boolean;
+    hasSubscription(key: number): boolean;
 
-    getSubscription(key: K): ISubscriber<K, O, R> | false;
+    getSubscription(key: number): ISubscriber<O, R> | false;
 
-    getKeys(): K[];
+    getKeys(): number[];
 }

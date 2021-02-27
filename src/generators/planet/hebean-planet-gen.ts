@@ -2,7 +2,7 @@ import BasePlanetGen from './base-planet-gen';
 import IPlanetGen from '../../interfaces/i-planet-gen';
 import Orbit from '../../objects/orbit';
 import PlanetTypeWorker from '../../objects/work/planet-type-worker';
-import { Chemicals, PlanetType, Score } from 'stellar-nursery-shared';
+import {Chemicals, PlanetType, Score} from 'stellar-nursery-shared';
 import PlanetStats from '../../objects/planet-stats';
 import IPlanet from '../../interfaces/i-planet';
 

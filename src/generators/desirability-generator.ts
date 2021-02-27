@@ -4,16 +4,13 @@ import StellarNurseryPublisher from '../stellar-nursery-publisher';
 import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
 import IPlanetGen from '../interfaces/i-planet-gen';
 import MoonOrbitWorker from '../objects/work/moon-orbit-worker';
-import { OrbitCategory, PlanetType, Score, Zone } from 'stellar-nursery-shared';
+import {OrbitCategory, Score, Zone} from 'stellar-nursery-shared';
 import PlanetTypeWorker from '../objects/work/planet-type-worker';
 import IPlanet from '../interfaces/i-planet';
 
 export default class DesirabilityGenerator implements IPlanetGen {
-    publish: IPublisher<number, MoonOrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<
-        number,
-        MoonOrbitWorker,
-        Orbit<any>[]
-    >();
+    publish: IPublisher<MoonOrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<MoonOrbitWorker,
+        Orbit<any>[]>();
 
     protected _random: RandomSeedFactory | undefined;
 
@@ -30,7 +27,7 @@ export default class DesirabilityGenerator implements IPlanetGen {
     }
 
     getKey(): number {
-        return PlanetType.Snowball;
+        return 10000;
     }
 
     // noinspection JSUnusedLocalSymbols

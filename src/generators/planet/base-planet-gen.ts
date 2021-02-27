@@ -5,15 +5,12 @@ import Orbit from '../../objects/orbit';
 import StellarNurseryPublisher from '../../stellar-nursery-publisher';
 import IPlanet from '../../interfaces/i-planet';
 import Star from '../../objects/star';
-import { OrbitCategory, PlanetType } from 'stellar-nursery-shared';
+import {OrbitCategory, PlanetType} from 'stellar-nursery-shared';
 import PlanetTypeWorker from '../../objects/work/planet-type-worker';
 
 export default class BasePlanetGen {
-    publish: IPublisher<number, MoonOrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<
-        number,
-        MoonOrbitWorker,
-        Orbit<any>[]
-    >();
+    publish: IPublisher<MoonOrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<MoonOrbitWorker,
+        Orbit<any>[]>();
 
     protected _random: RandomSeedFactory | undefined;
 

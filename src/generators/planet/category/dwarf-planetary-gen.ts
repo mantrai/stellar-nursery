@@ -1,5 +1,5 @@
 import Orbit from '../../../objects/orbit';
-import { OrbitCategory, PlanetType, Zone } from 'stellar-nursery-shared';
+import {OrbitCategory, PlanetType, Zone} from 'stellar-nursery-shared';
 import BasePlanetaryGen from './base-planetary-gen';
 import IPlanetCategoryGen from '../../../interfaces/i-planet-category-gen';
 import PlanetCategoryWorker from '../../../objects/work/planet-category-worker';

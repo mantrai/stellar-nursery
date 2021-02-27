@@ -5,9 +5,9 @@ import IPublisher from './i-publisher';
 import OrbitWorker from '../objects/work/orbit-worker';
 import PlanetCategoryWorker from '../objects/work/planet-category-worker';
 
-export default interface IOrbitGen extends ISubscriber<number, OrbitWorker, Orbit<any>[]> {
+export default interface IOrbitGen extends ISubscriber<OrbitWorker, Orbit<any>[]> {
     random: RandomSeedFactory;
-    publish: IPublisher<number, PlanetCategoryWorker, Orbit<any>>;
+    publish: IPublisher<PlanetCategoryWorker, Orbit<any>>;
 
     getKey(): number;
 

@@ -1,7 +1,7 @@
 import MockRandomizer from '../mock-randomizer';
 import SystemGenerator from '../generators/system-generator';
 import StarGenerator from '../generators/star-generator';
-import { SystemType } from 'stellar-nursery-shared';
+import {SystemType} from 'stellar-nursery-shared';
 
 test('One Star', () => {
     const random = new MockRandomizer();

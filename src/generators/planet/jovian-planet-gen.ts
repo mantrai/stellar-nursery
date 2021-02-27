@@ -1,6 +1,6 @@
 import BasePlanetGen from './base-planet-gen';
 import IPlanetGen from '../../interfaces/i-planet-gen';
-import { Chemicals, PlanetType, Score, Zone } from 'stellar-nursery-shared';
+import {Chemicals, PlanetType, Score, Zone} from 'stellar-nursery-shared';
 import PlanetStats from '../../objects/planet-stats';
 import Orbit from '../../objects/orbit';
 import IPlanet from '../../interfaces/i-planet';

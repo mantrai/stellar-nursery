@@ -2,18 +2,16 @@ import RandomSeedFactory from 'stellar-nursery-shared/lib/random-seed-factory';
 import IOrbitGen from '../interfaces/i-orbit-gen';
 import Star from '../objects/star';
 import Orbit from '../objects/orbit';
-import { Score, Separation, Zone } from 'stellar-nursery-shared';
+import {Score, Separation, Zone} from 'stellar-nursery-shared';
 import OrbitWorker from '../objects/work/orbit-worker';
 import StellarNurseryPublisher from '../stellar-nursery-publisher';
 import IPublisher from '../interfaces/i-publisher';
 import PlanetCategoryWorker from '../objects/work/planet-category-worker';
+import IPlanet from "../interfaces/i-planet";
 
 export default class OrbitGenerator implements IOrbitGen {
-    publish: IPublisher<number, PlanetCategoryWorker, Orbit<any>> = new StellarNurseryPublisher<
-        number,
-        PlanetCategoryWorker,
-        Orbit<any>
-    >();
+    publish: IPublisher<PlanetCategoryWorker, Orbit<any>> = new StellarNurseryPublisher<PlanetCategoryWorker,
+        Orbit<any>>();
 
     private _random: RandomSeedFactory | undefined;
 
@@ -56,7 +54,7 @@ export default class OrbitGenerator implements IOrbitGen {
                     const sub = this.publish.getSubscription(key);
                     const worker = new PlanetCategoryWorker(roll, workObj.star, workObj.age, zone);
                     if (sub && sub.hasWork(worker)) {
-                        const orbit: Orbit<any> = sub.run(worker);
+                        const orbit: Orbit<IPlanet> = sub.run(worker);
                         if (orbit) {
                             orbits.push(orbit);
                         }

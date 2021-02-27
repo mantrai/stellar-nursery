@@ -1,5 +1,5 @@
-export default interface ISubscriber<K, O, R> {
-    getKey(): K;
+export default interface ISubscriber<O, R> {
+    getKey(): number;
 
     hasWork(workObj: O): boolean;
 

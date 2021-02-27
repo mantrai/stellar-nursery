@@ -1,6 +1,6 @@
 import Orbit from './orbit';
 import IOrbitItem from '../interfaces/i-orbit-item';
-import { OrbitCategory } from 'stellar-nursery-shared';
+import {OrbitCategory} from 'stellar-nursery-shared';
 
 export default class Star implements IOrbitItem {
     public spectralClass: string = '';
