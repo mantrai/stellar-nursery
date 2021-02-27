@@ -1,6 +1,6 @@
 import Orbit from './orbit';
 import Star from './star';
-import {SystemType} from 'stellar-nursery-shared';
+import { SystemType } from 'stellar-nursery-shared';
 
 export default class System {
     public name: string = '';

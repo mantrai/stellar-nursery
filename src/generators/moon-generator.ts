@@ -8,9 +8,11 @@ import IMoonGen from '../interfaces/i-moon-gen';
 import IPlanet from '../interfaces/i-planet';
 
 export default class MoonGenerator implements IMoonGen {
-    publish: IPublisher<number, PlanetCategoryWorker, Orbit<any>> = new StellarNurseryPublisher<number,
+    publish: IPublisher<number, PlanetCategoryWorker, Orbit<any>> = new StellarNurseryPublisher<
+        number,
         PlanetCategoryWorker,
-        Orbit<any>>();
+        Orbit<any>
+    >();
 
     private _random: RandomSeedFactory | undefined;
 

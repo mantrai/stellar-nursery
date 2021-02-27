@@ -6,12 +6,14 @@ import Orbit from '../objects/orbit';
 import StellarNurseryPublisher from '../stellar-nursery-publisher';
 import StarLevelWorker from '../objects/work/star-level-worker';
 import Star from '../objects/star';
-import {SystemType} from 'stellar-nursery-shared';
+import { SystemType } from 'stellar-nursery-shared';
 
 export default class SystemGenerator implements ISystemLevelGen {
-    public publish: IPublisher<number, StarLevelWorker, Orbit<Star>[]> = new StellarNurseryPublisher<number,
+    public publish: IPublisher<number, StarLevelWorker, Orbit<Star>[]> = new StellarNurseryPublisher<
+        number,
         StarLevelWorker,
-        Orbit<Star>[]>();
+        Orbit<Star>[]
+    >();
 
     private _random: RandomSeedFactory | undefined;
 

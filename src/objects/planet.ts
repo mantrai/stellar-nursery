@@ -1,7 +1,7 @@
 import IPlanet from '../interfaces/i-planet';
 import Orbit from './orbit';
 import PlanetStats from './planet-stats';
-import {OrbitCategory, PlanetType} from '../types/enum';
+import { OrbitCategory, PlanetType } from 'stellar-nursery-shared';
 
 export default class Planet implements IPlanet {
     public orbitCategory: number = OrbitCategory.None;
@@ -31,7 +31,7 @@ export default class Planet implements IPlanet {
         };
 
         if (this._planetaryStats !== undefined) {
-            json = {...json, ...this._planetaryStats.toJSON()};
+            json = { ...json, ...this._planetaryStats.toJSON() };
         }
 
         return json;

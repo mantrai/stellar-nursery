@@ -3,6 +3,7 @@ import ISubscriber from './interfaces/i-subscriber';
 
 export default class StellarNurseryPublisher<K, O, R> implements IPublisher<K, O, R> {
     private _subscriptions: Map<K, ISubscriber<K, O, R>> = new Map<K, ISubscriber<K, O, R>>();
+
     bulkSubscribe(subscribers: Map<K, ISubscriber<K, O, R>>): IPublisher<K, O, R> {
         this._subscriptions = subscribers;
         return this;

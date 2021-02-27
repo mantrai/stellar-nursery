@@ -1,5 +1,4 @@
-import {Rings} from '../types/enum';
-import {Score} from 'stellar-nursery-shared';
+import { Rings, Score } from 'stellar-nursery-shared';
 
 export default class PlanetStats {
     planetGroup: string = '';

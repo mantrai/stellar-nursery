@@ -2,9 +2,8 @@ import BasePlanetGen from './base-planet-gen';
 import IPlanetGen from '../../interfaces/i-planet-gen';
 import Orbit from '../../objects/orbit';
 import PlanetTypeWorker from '../../objects/work/planet-type-worker';
-import {PlanetType} from '../../types/enum';
+import { PlanetType, Score } from 'stellar-nursery-shared';
 import PlanetStats from '../../objects/planet-stats';
-import {Score} from 'stellar-nursery-shared';
 import IPlanet from '../../interfaces/i-planet';
 
 export default class JanilithicPlanetGen extends BasePlanetGen implements IPlanetGen {
