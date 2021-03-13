@@ -3,10 +3,10 @@ import Orbit from '../objects/orbit';
 import Star from '../objects/star';
 import {Separation} from 'stellar-nursery-shared';
 import IStarLevelGen from '../interfaces/i-star-level-gen';
-import StarLevelWorker from '../objects/work/star-level-worker';
 import IPublisher from '../interfaces/i-publisher';
 import OrbitWorker from '../objects/work/orbit-worker';
 import StellarNurseryPublisher from '../stellar-nursery-publisher';
+import System from "../objects/system";
 
 export default class StarGenerator implements IStarLevelGen {
     publish: IPublisher<OrbitWorker, Orbit<any>[]> = new StellarNurseryPublisher<OrbitWorker,
@@ -31,24 +31,25 @@ export default class StarGenerator implements IStarLevelGen {
     }
 
     // noinspection JSUnusedLocalSymbols
-    hasWork(workObj: StarLevelWorker): boolean {
+    hasWork(workObj: System): boolean {
         return true;
     }
 
-    run(workObj: StarLevelWorker): Orbit<Star>[] {
+    run(workObj: System): System {
         const orbits = [];
         let mod = 0;
-        for (let i = 0; i < workObj.qty; i++) {
+        const qty = workObj.type + 1;
+        for (let i = 1; i <= qty; i++) {
             const stats = this.calculateStats(
                 this.getStarClass(this.random.between(2, 12) + mod),
                 workObj.age,
                 this.random.between(1, 6),
             );
-            stats.separation = i > 0 ? this.getSeparation(this.random.between(1, 6)) : 0;
+            stats.separation = i > 1 ? this.getSeparation(this.random.between(1, 6)) : 0;
             const orbit = new Orbit<Star>(stats);
             this.publish.getKeys().forEach((key: number) => {
                 const sub = this.publish.getSubscription(key);
-                const worker = new OrbitWorker(orbit.orbitStats, workObj.age);
+                const worker = new OrbitWorker(orbit.orbitStats, workObj.age, qty);
                 if (sub && sub.hasWork(worker)) {
                     orbit.orbitStats.orbits = sub.run(worker);
                 }
@@ -57,7 +58,9 @@ export default class StarGenerator implements IStarLevelGen {
             mod += this.random.between(0, 5);
         }
 
-        return orbits;
+        workObj.orbits = orbits;
+
+        return workObj;
     }
 
     getStarClass(roll: number): string {

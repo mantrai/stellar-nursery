@@ -4,13 +4,11 @@ import ISystemLevelGen from '../interfaces/i-system-level-gen';
 import IPublisher from '../interfaces/i-publisher';
 import Orbit from '../objects/orbit';
 import StellarNurseryPublisher from '../stellar-nursery-publisher';
-import StarLevelWorker from '../objects/work/star-level-worker';
 import Star from '../objects/star';
 import {SystemType} from 'stellar-nursery-shared';
 
 export default class SystemGenerator implements ISystemLevelGen {
-    public publish: IPublisher<StarLevelWorker, Orbit<Star>[]> = new StellarNurseryPublisher<StarLevelWorker,
-        Orbit<Star>[]>();
+    public publish: IPublisher<System, System> = new StellarNurseryPublisher<System, System>();
 
     private _random: RandomSeedFactory | undefined;
 
@@ -27,7 +25,7 @@ export default class SystemGenerator implements ISystemLevelGen {
     }
 
     run(): System {
-        const system = new System();
+        let system = new System();
         const roll = this.random.between(3, 18);
         system.type = SystemType.Trinary;
         if (roll <= 10) {
@@ -38,9 +36,8 @@ export default class SystemGenerator implements ISystemLevelGen {
         system.age = this.random.between(0, 15);
         this.publish.getKeys().forEach((key: number) => {
             const sub = this.publish.getSubscription(key);
-            const worker = new StarLevelWorker(system.age, system.type + 1);
-            if (sub && sub.hasWork(worker)) {
-                system.orbits = sub.run(worker);
+            if (sub && sub.hasWork(system)) {
+                system = sub.run(system);
             }
         });
         return system;
