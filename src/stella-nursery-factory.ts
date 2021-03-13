@@ -31,12 +31,14 @@ import TelluricPlanetGen from './generators/planet/telluric-planet-gen';
 import VesperianPlanetGen from './generators/planet/vesperian-planet-gen';
 import MoonGenerator from './generators/moon-generator';
 import DesirabilityGenerator from './generators/desirability-generator';
+import {IDenizen} from "stellar-nursery-denizens/lib/i-denizen";
+import DenizenGenerator from "./generators/denizen-generator";
 
 export default class StellaNurseryFactory {
     protected _random: RandomSeedFactory | undefined;
     private _systemGenerator: ISystemLevelGen;
 
-    constructor(seed?: string) {
+    constructor(denizen: IDenizen, seed?: string) {
         this._random = new DefaultRandomizer();
         if (seed === undefined) {
             this._random.createSeed();
@@ -79,6 +81,7 @@ export default class StellaNurseryFactory {
         const orbitGen = new OrbitGenerator();
         const moonGen = new MoonGenerator();
         const desire = new DesirabilityGenerator();
+        const naming = new DenizenGenerator();
 
         // add random
         this._systemGenerator.random = this._random;
@@ -86,6 +89,9 @@ export default class StellaNurseryFactory {
         orbitGen.random = this._random;
         moonGen.random = this._random;
         desire.random = this._random;
+        naming.random = this._random;
+        denizen.setup(this._random);
+        naming.denizen = denizen;
 
         for (const planet of planetSubscriptions) {
             planet.random = this._random;
@@ -102,6 +108,7 @@ export default class StellaNurseryFactory {
         // join
         starGen.publish.subscribe(orbitGen);
         this._systemGenerator.publish.subscribe(starGen);
+        this._systemGenerator.publish.subscribe(naming);
     }
 
     public getSeed() {
