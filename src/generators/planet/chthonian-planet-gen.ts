@@ -25,7 +25,7 @@ export default class ChthonianPlanetGen extends BasePlanetGen implements IPlanet
             'These are Jovian worlds with masses ranging from 0.015 to 0.24 times that of Jupiter.  They are the exposed cores of Jovian worlds which have lost their gaseous envelopes through solar evaporation.  This typically occurs to older Jovians in tight solar orbits, or Jovians that have been greatly affected by the evolution of their primary sun.';
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 }

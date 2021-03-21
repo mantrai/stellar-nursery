@@ -7,6 +7,7 @@ export default class PlanetCategoryWorker {
     star: Star;
     age: number;
     zone: number;
+    techLevel: number;
     parent?: Orbit<IPlanet>;
     current?: Orbit<IPlanet>;
 
@@ -15,6 +16,7 @@ export default class PlanetCategoryWorker {
         star: Star,
         age: number,
         zone: number,
+        techLevel: number,
         parent?: Orbit<IPlanet>,
         current?: Orbit<IPlanet>,
     ) {
@@ -24,5 +26,6 @@ export default class PlanetCategoryWorker {
         this.zone = zone;
         this.parent = parent;
         this.current = current;
+        this.techLevel = techLevel;
     }
 }

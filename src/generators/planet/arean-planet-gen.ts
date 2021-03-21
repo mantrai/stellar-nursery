@@ -71,7 +71,7 @@ export default class AreanPlanetGen extends BasePlanetGen implements IPlanetGen 
         stats.planetClass = 'GeoCyclic';
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 }

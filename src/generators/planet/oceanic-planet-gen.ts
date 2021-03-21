@@ -103,7 +103,7 @@ export default class OceanicPlanetGen extends BasePlanetGen implements IPlanetGe
         stats.description = classType[roll].pd;
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 

@@ -57,7 +57,7 @@ export default class TerrestrialPlanetaryGen extends BasePlanetaryGen implements
             }
         }
 
-        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.parent) as Orbit<IPlanet>;
+        return this.response(planet, workObj.star, workObj.zone, workObj.age, type, workObj.techLevel, workObj.parent) as Orbit<IPlanet>;
     }
 
     generateChildren(planet: Orbit<IPlanet>): Orbit<IPlanet> {

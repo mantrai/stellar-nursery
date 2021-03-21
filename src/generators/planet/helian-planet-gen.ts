@@ -38,7 +38,7 @@ export default class HelianPlanetGen extends BasePlanetGen implements IPlanetGen
         }
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 }

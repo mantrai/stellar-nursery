@@ -36,11 +36,12 @@ export default class BasePlanetaryGen {
         zone: number,
         age: number,
         type: number,
+        techLevel: number,
         parent?: Orbit<any>,
     ): Orbit<IPlanet> {
         this.publish.getKeys().forEach((key: number) => {
             const sub = this.publish.getSubscription(key);
-            const worker = new PlanetTypeWorker(type, orbit, star, zone, age, parent);
+            const worker = new PlanetTypeWorker(type, orbit, star, zone, age, techLevel, parent);
             if (sub && sub.hasWork(worker)) {
                 orbit = sub.run(worker);
             }

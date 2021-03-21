@@ -52,7 +52,7 @@ export default class OrbitGenerator implements IOrbitGen {
 
                 this.publish.getKeys().forEach((key: number) => {
                     const sub = this.publish.getSubscription(key);
-                    const worker = new PlanetCategoryWorker(roll, workObj.star, workObj.age, zone);
+                    const worker = new PlanetCategoryWorker(roll, workObj.star, workObj.age, zone, workObj.techLevel);
                     if (sub && sub.hasWork(worker)) {
                         const orbit: Orbit<IPlanet> = sub.run(worker);
                         if (orbit) {

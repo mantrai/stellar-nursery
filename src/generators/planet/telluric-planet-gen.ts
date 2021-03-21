@@ -32,7 +32,7 @@ export default class TelluricPlanetGen extends BasePlanetGen implements IPlanetG
         stats.planetGroup = 'Terrestrial';
         stats.planetClass = 'Telluric';
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 }

@@ -44,6 +44,7 @@ export default class MoonGenerator implements IMoonGen {
                     workObj.star,
                     workObj.age,
                     workObj.zone,
+                    workObj.techLevel,
                     workObj.current,
                     orbit as Orbit<IPlanet>,
                 );

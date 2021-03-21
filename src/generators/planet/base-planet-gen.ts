@@ -51,10 +51,10 @@ export default class BasePlanetGen {
         return result;
     }
 
-    public response(orbit: Orbit<IPlanet>, star: Star, zone: number, age: number, parent?: Orbit<any>): Orbit<IPlanet> {
+    public response(orbit: Orbit<IPlanet>, star: Star, zone: number, age: number, techLevel: number, parent?: Orbit<any>): Orbit<IPlanet> {
         this.publish.getKeys().forEach((key: number) => {
             const sub = this.publish.getSubscription(key);
-            const worker = new MoonOrbitWorker(star, zone, age, orbit, parent);
+            const worker = new MoonOrbitWorker(star, zone, age, techLevel, orbit, parent);
             if (sub && sub.hasWork(worker)) {
                 orbit.orbitStats.orbits = sub.run(worker);
             }

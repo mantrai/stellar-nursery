@@ -25,7 +25,7 @@ export default class StygianPlanetGen extends BasePlanetGen implements IPlanetGe
             "These are Dwarf Terrestrial worlds which have survived the movement of their primary sun off of the main sequence, and its subsequent evolution towards a stellar corpse.  The surfaces of these bodies show ample evidence of transformation due to the primary's stellar evolution.";
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 }

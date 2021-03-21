@@ -46,7 +46,7 @@ export default class RockballPlanetGen extends BasePlanetGen implements IPlanetG
             stats.chemistry.push(Chemicals.Carbon);
         }
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 }

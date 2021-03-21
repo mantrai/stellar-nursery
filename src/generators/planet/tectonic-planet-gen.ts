@@ -80,7 +80,7 @@ export default class TectonicPlanetGen extends BasePlanetGen implements IPlanetG
         stats.planetClass = 'Tectonic';
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 }

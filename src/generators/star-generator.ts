@@ -49,7 +49,7 @@ export default class StarGenerator implements IStarLevelGen {
             const orbit = new Orbit<Star>(stats);
             this.publish.getKeys().forEach((key: number) => {
                 const sub = this.publish.getSubscription(key);
-                const worker = new OrbitWorker(orbit.orbitStats, workObj.age, qty);
+                const worker = new OrbitWorker(orbit.orbitStats, workObj.age, workObj.techLevel, qty);
                 if (sub && sub.hasWork(worker)) {
                     orbit.orbitStats.orbits = sub.run(worker);
                 }

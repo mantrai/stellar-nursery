@@ -25,7 +25,7 @@ export default class JanilithicPlanetGen extends BasePlanetGen implements IPlane
             'These are rocky, dry, geologically active worlds with greatly varying degrees of geological activity.  As such, their atmospheres are also quite varied, but typically are primarily composed of carbon dioxide.';
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 }

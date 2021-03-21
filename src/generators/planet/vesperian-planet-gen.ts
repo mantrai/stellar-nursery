@@ -47,7 +47,7 @@ export default class VesperianPlanetGen extends BasePlanetGen implements IPlanet
             'These are silicate worlds with continuous geological activity which may be plate tectonics, or a similar mechanism.  Because of their proximity to cooler late k-type or M-type stars, they have temperatures suitable for the development of life.  And while a large number of circumstances must be met for these worlds to be life bearing, circumstances which are rare, the sheer number of stars which can host these worlds makes the presence of Vesperian planets only slightly less common than Gaian worlds.';
 
         workObj.planet.orbitStats.planetaryStats = stats;
-        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.parent);
+        workObj.planet = this.response(workObj.planet, workObj.star, workObj.zone, workObj.age, workObj.techLevel, workObj.parent);
         return workObj.planet;
     }
 }
