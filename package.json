@@ -1,0 +1,23 @@
+{
+  "name": "stellar-nursery",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mantrai/stellar-nursery.git",
+  "author": "mantrai <mantra@penitence.eu>",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.30.0"
+  },
+  "dependencies": {
+    "@codeinkit/flows": "^3.0.1",
+    "fparser": "^2.0.2",
+    "hasharray": "^1.1.2",
+    "js-plugin": "^1.1.0",
+    "just-clone": "^6.2.0",
+    "math-precision": "^1.0.5",
+    "seedrandom": "^3.0.5",
+    "treeify": "^1.1.0",
+    "treeize": "^2.1.2"
+  }
+}
