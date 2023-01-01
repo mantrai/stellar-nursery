@@ -3,6 +3,7 @@ import treeify from 'treeify';
 import Random from './lib/random.js'
 import {SupportedHooks} from "@codeinkit/flows";
 import stars from "./plugins/stars.js";
+import system from "./plugins/system.js";
 
 // Create random library
 const random = Random();
@@ -10,6 +11,7 @@ const random = Random();
 const stellar = Stellar();
 // Register plugins
 stars(random).register();
+system(random).register();
 
 // initialise stellar
 stellar.init();
